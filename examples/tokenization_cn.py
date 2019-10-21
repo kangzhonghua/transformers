@@ -368,8 +368,8 @@ class GPT2Tokenizer_cn(PreTrainedTokenizer):
     #pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
     max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
 
-    def __init__(self, vocab_file, merges_file, errors='replace', unk_token="<|endoftext|>",
-                 bos_token="<|endoftext|>", eos_token="<|endoftext|>", **kwargs):
+    def __init__(self, vocab_file, merges_file, errors='replace', unk_token="<unk>",
+                 bos_token="<bos>", eos_token="<eos>", **kwargs):
         super(GPT2Tokenizer_cn, self).__init__(bos_token=bos_token, eos_token=eos_token, unk_token=unk_token, **kwargs)
 
         text_tokenizer = SentencePieceTokenizer(vocab_size=32128, model_path=vocab_file,pad_token=0)
@@ -407,7 +407,9 @@ class GPT2Tokenizer_cn(PreTrainedTokenizer):
         return text
 
     def save_vocabulary(self, save_directory):        
-        raise NotImplementedError
+        print("save_vocabulary NotImplementedError")
+
+        return os.path.join(save_directory, VOCAB_FILES_NAMES["vocab_file"]), os.path.join(save_directory, VOCAB_FILES_NAMES["merges_file"])
         
 class TextTokenizer(object):
     """
