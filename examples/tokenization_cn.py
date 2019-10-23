@@ -134,6 +134,11 @@ DEFAULT_COMMAND_TOKENS = [
 
 DEFAULT_COMMAND_TOKENS = prep_command_tokens(DEFAULT_COMMAND_TOKENS)
 
+SPECIAL_TOKEN_NUM = 5
+
+BPE_ID2_CMD=[0,3,2,1,4]
+CMD_ID2_BPE=[0,3,2,1,4]
+
 """define some default type tokens for bert training"""
 
 TYPE_TUPLE = namedtuple('TypeToken', ('name', 'token', 'Id'))
@@ -299,7 +304,14 @@ class Tokenizer(object):
             return self.type_id_map[Id].token
         if Id < self.num_command_tokens:
             return self.command_id_map[Id].token
-        return self.text_tokenizer.IdToToken(Id-self.num_command_tokens)
+
+        Id = Id - self.num_command_tokens
+
+        if(Id<SPECIAL_TOKEN_NUM):
+            print(f"CMD ID {Id} --> BPE {CMD_ID2_BPE[Id]}\n")
+            Id = CMD_ID2_BPE[Id]
+
+        return self.text_tokenizer.IdToToken(Id)
 
     def TokenToId(self, token, type_token=False):
         """convert token to Id accounting for command and type tokens"""
@@ -309,7 +321,17 @@ class Tokenizer(object):
             return self.type_token_map[token].Id
         if token in self.command_token_map:
             return self.command_token_map[token].Id
-        return self.text_tokenizer.TokenToId(token)+self.num_command_tokens
+
+        Id = self.text_tokenizer.TokenToId(token)
+
+        if(Id<SPECIAL_TOKEN_NUM):
+            #print(f"BPE ID {Id} --> CMD {BPE_ID2_CMD[Id]}\n")
+            Id = BPE_ID2_CMD[Id]
+            return Id
+
+        else:
+
+            return Id + self.num_command_tokens
 
     def DecodeIds(self, Ids, type_token=False):
         """
@@ -543,7 +565,8 @@ class SentencePieceTokenizer(TextTokenizer):
 
     def TokenToId(self, token):
         """convert sentencpiece token to Id"""
-        return self.sp.PieceToId(token)
+        Id = self.sp.PieceToId(token)
+        return Id
 
     def DecodeIds(self, Ids):
         """converts ids to a text string"""
