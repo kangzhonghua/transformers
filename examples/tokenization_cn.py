@@ -582,3 +582,51 @@ class SentencePieceTokenizer(TextTokenizer):
 
     def _tokenize(self, text):
         return self.sp.encode_as_pieces(text)
+
+
+class GPT2BPETokenizer_CN(PreTrainedTokenizer):
+    vocab_files_names = VOCAB_FILES_NAMES
+    # pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
+    max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
+
+    def __init__(self, vocab_file, merges_file, errors='replace', unk_token="<unk>",
+                 bos_token="<bos>", eos_token="<eos>", **kwargs):
+        super(GPT2BPETokenizer_CN, self).__init__(bos_token=bos_token, eos_token=eos_token, unk_token=unk_token, **kwargs)
+
+        self.tokenizer = spm.SentencePieceProcessor()
+        self.tokenizer.Load(vocab_file)
+
+    @property
+    def vocab_size(self):
+        return len(self.tokenizer)
+
+    def _tokenize(self, text, add_prefix_space=False):
+        """ Tokenize a string.
+            Args:
+                - add_prefix_space (boolean, default False):
+                    Begin the sentence with at least one space toto get invariance to word order in GPT-2 (and RoBERTa) tokenizers.
+        """
+        if add_prefix_space:
+            text = ' ' + text
+
+        return self.tokenizer.encode_as_pieces(text)
+
+    def _convert_token_to_id(self, token):
+        """ Converts a token (str/unicode) in an id using the vocab. """
+        return self.tokenizer.PieceToId(token)
+
+    def _convert_id_to_token(self, index):
+        """Converts an index (integer) in a token (string/unicode) using the vocab."""
+        return self.tokenizer.IdToPiece(index)
+
+    def convert_tokens_to_string(self, tokens):
+        """ Converts a sequence of tokens (string) in a single string. """
+        text = ''.join(tokens)
+        return text
+
+    def save_vocabulary(self, save_directory):
+        print("save_vocabulary NotImplementedError")
+
+        return os.path.join(save_directory, VOCAB_FILES_NAMES["vocab_file"]), os.path.join(save_directory,
+                                                                                           VOCAB_FILES_NAMES[
+                                                                                               "merges_file"])
