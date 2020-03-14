@@ -21,6 +21,7 @@ from transformers import is_torch_available
 from .test_configuration_common import ConfigTester
 from .test_modeling_common import ModelTesterMixin, ids_tensor
 from .utils import CACHE_DIR, require_torch, slow, torch_device
+<<<<<<< HEAD:tests/test_modeling_openai.py
 
 
 if is_torch_available():
@@ -40,6 +41,31 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
         (OpenAIGPTModel, OpenAIGPTLMHeadModel, OpenAIGPTDoubleHeadsModel) if is_torch_available() else ()
     )
 
+=======
+
+
+if is_torch_available():
+    import torch
+    from transformers import (
+        OpenAIGPTConfig,
+        OpenAIGPTModel,
+        OPENAI_GPT_PRETRAINED_MODEL_ARCHIVE_MAP,
+        OpenAIGPTLMHeadModel,
+        OpenAIGPTDoubleHeadsModel,
+    )
+
+
+@require_torch
+class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
+
+    all_model_classes = (
+        (OpenAIGPTModel, OpenAIGPTLMHeadModel, OpenAIGPTDoubleHeadsModel) if is_torch_available() else ()
+    )
+    all_generative_model_classes = (
+        (OpenAIGPTLMHeadModel,) if is_torch_available() else ()
+    )  # TODO (PVP): Add Double HeadsModel when generate() function is changed accordingly
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py
     class OpenAIGPTModelTester(object):
         def __init__(
             self,
@@ -119,7 +145,15 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
 
             head_mask = ids_tensor([self.num_hidden_layers, self.num_attention_heads], 2)
 
-            return config, input_ids, head_mask, token_type_ids, sequence_labels, token_labels, choice_labels
+            return (
+                config,
+                input_ids,
+                head_mask,
+                token_type_ids,
+                sequence_labels,
+                token_labels,
+                choice_labels,
+            )
 
         def check_loss_output(self, result):
             self.parent.assertListEqual(list(result["loss"].size()), [])
@@ -135,7 +169,11 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
 
             result = {"sequence_output": sequence_output}
             self.parent.assertListEqual(
+<<<<<<< HEAD:tests/test_modeling_openai.py
                 list(result["sequence_output"].size()), [self.batch_size, self.seq_length, self.hidden_size]
+=======
+                list(result["sequence_output"].size()), [self.batch_size, self.seq_length, self.hidden_size],
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py
             )
 
         def create_and_check_lm_head_model(self, config, input_ids, head_mask, token_type_ids, *args):
@@ -149,7 +187,11 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
 
             self.parent.assertListEqual(list(result["loss"].size()), [])
             self.parent.assertListEqual(
+<<<<<<< HEAD:tests/test_modeling_openai.py
                 list(result["lm_logits"].size()), [self.batch_size, self.seq_length, self.vocab_size]
+=======
+                list(result["lm_logits"].size()), [self.batch_size, self.seq_length, self.vocab_size],
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py
             )
 
         def create_and_check_double_lm_head_model(self, config, input_ids, head_mask, token_type_ids, *args):
@@ -163,7 +205,11 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
 
             self.parent.assertListEqual(list(result["loss"].size()), [])
             self.parent.assertListEqual(
+<<<<<<< HEAD:tests/test_modeling_openai.py
                 list(result["lm_logits"].size()), [self.batch_size, self.seq_length, self.vocab_size]
+=======
+                list(result["lm_logits"].size()), [self.batch_size, self.seq_length, self.vocab_size],
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py
             )
 
         def prepare_config_and_inputs_for_common(self):
@@ -177,7 +223,15 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
                 token_labels,
                 choice_labels,
             ) = config_and_inputs
+<<<<<<< HEAD:tests/test_modeling_openai.py
             inputs_dict = {"input_ids": input_ids, "token_type_ids": token_type_ids, "head_mask": head_mask}
+=======
+            inputs_dict = {
+                "input_ids": input_ids,
+                "token_type_ids": token_type_ids,
+                "head_mask": head_mask,
+            }
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py
 
             return config, inputs_dict
 
@@ -205,3 +259,38 @@ class OpenAIGPTModelTest(ModelTesterMixin, unittest.TestCase):
         for model_name in list(OPENAI_GPT_PRETRAINED_MODEL_ARCHIVE_MAP.keys())[:1]:
             model = OpenAIGPTModel.from_pretrained(model_name, cache_dir=CACHE_DIR)
             self.assertIsNotNone(model)
+<<<<<<< HEAD:tests/test_modeling_openai.py
+=======
+
+
+class OPENAIGPTModelLanguageGenerationTest(unittest.TestCase):
+    @slow
+    def test_lm_generate_openai_gpt(self):
+        model = OpenAIGPTLMHeadModel.from_pretrained("openai-gpt")
+        input_ids = torch.tensor([[481, 4735, 544]], dtype=torch.long, device=torch_device)  # the president is
+        expected_output_ids = [
+            481,
+            4735,
+            544,
+            246,
+            963,
+            870,
+            762,
+            239,
+            244,
+            40477,
+            244,
+            249,
+            719,
+            881,
+            487,
+            544,
+            240,
+            244,
+            603,
+            481,
+        ]  # the president is a very good man. " \n " i\'m sure he is, " said the
+
+        output_ids = model.generate(input_ids, do_sample=False)
+        self.assertListEqual(output_ids[0].tolist(), expected_output_ids)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_openai.py

@@ -454,6 +454,7 @@ class CTRLLMHeadModel(CTRLPreTrainedModel):
     def get_output_embeddings(self):
         return self.lm_head
 
+<<<<<<< HEAD
     def prepare_inputs_for_generation(self, input_ids, **kwargs):
         # only last token for inputs_ids if past is defined in kwargs
         if "past" in kwargs and kwargs["past"]:
@@ -462,6 +463,14 @@ class CTRLLMHeadModel(CTRLPreTrainedModel):
         inputs = {"input_ids": input_ids}
         inputs.update(kwargs)
         return inputs
+=======
+    def prepare_inputs_for_generation(self, input_ids, past, **kwargs):
+        # only last token for inputs_ids if past is defined in kwargs
+        if past:
+            input_ids = input_ids[:, -1].unsqueeze(-1)
+
+        return {"input_ids": input_ids, "past": past}
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     @add_start_docstrings_to_callable(CTRL_INPUTS_DOCSTRING)
     def forward(

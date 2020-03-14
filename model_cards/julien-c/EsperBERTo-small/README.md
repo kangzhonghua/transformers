@@ -22,8 +22,13 @@ from transformers import pipeline
 
 fill_mask = pipeline(
     "fill-mask",
+<<<<<<< HEAD
     model="julien-c/EspertBERTo-small",
     tokenizer="julien-c/EspertBERTo-small"
+=======
+    model="julien-c/EsperBERTo-small",
+    tokenizer="julien-c/EsperBERTo-small"
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 )
 
 fill_mask("Jen la komenco de bela <mask>.")
@@ -56,4 +61,8 @@ fill_mask("Jen la komenco de bela <mask>.")
 #     'sequence':'<s> Jen la komenco de bela festo.</s>'
 #     'token':4580
 # }
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

@@ -23,7 +23,11 @@ import tensorflow as tf
 from .configuration_albert import AlbertConfig
 from .file_utils import add_start_docstrings, add_start_docstrings_to_callable
 from .modeling_tf_bert import ACT2FN, TFBertSelfAttention
+<<<<<<< HEAD
 from .modeling_tf_utils import TFPreTrainedModel, get_initializer, shape_list
+=======
+from .modeling_tf_utils import TFPreTrainedModel, get_initializer, keras_serializable, shape_list
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 logger = logging.getLogger(__name__)
@@ -478,9 +482,18 @@ class TFAlbertMLMHead(tf.keras.layers.Layer):
         return hidden_states
 
 
+<<<<<<< HEAD
 class TFAlbertMainLayer(tf.keras.layers.Layer):
     def __init__(self, config, **kwargs):
         super().__init__(config, **kwargs)
+=======
+@keras_serializable
+class TFAlbertMainLayer(tf.keras.layers.Layer):
+    config_class = AlbertConfig
+
+    def __init__(self, config, **kwargs):
+        super().__init__(**kwargs)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         self.num_hidden_layers = config.num_hidden_layers
 
         self.embeddings = TFAlbertEmbeddings(config, name="embeddings")

@@ -101,5 +101,10 @@ class AutoTokenizerTest(unittest.TestCase):
                             self.assertFalse(issubclass(child_model_fast, parent_model_fast))
 
     def test_from_pretrained_use_fast_toggle(self):
+<<<<<<< HEAD
         self.assertIsInstance(AutoTokenizer.from_pretrained("bert-base-cased"), BertTokenizerFast)
         self.assertIsInstance(AutoTokenizer.from_pretrained("bert-base-cased", use_fast=False), BertTokenizer)
+=======
+        self.assertIsInstance(AutoTokenizer.from_pretrained("bert-base-cased"), BertTokenizer)
+        self.assertIsInstance(AutoTokenizer.from_pretrained("bert-base-cased", use_fast=True), BertTokenizerFast)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

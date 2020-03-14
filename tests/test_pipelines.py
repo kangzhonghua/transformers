@@ -2,9 +2,22 @@ import unittest
 from typing import Iterable, List, Optional
 
 from transformers import pipeline
+<<<<<<< HEAD
 from transformers.pipelines import Pipeline
 
 from .utils import require_tf, require_torch
+=======
+from transformers.pipelines import (
+    FeatureExtractionPipeline,
+    FillMaskPipeline,
+    NerPipeline,
+    Pipeline,
+    QuestionAnsweringPipeline,
+    TextClassificationPipeline,
+)
+
+from .utils import require_tf, require_torch, slow
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 QA_FINETUNED_MODELS = [
@@ -284,7 +297,11 @@ class MultiColumnInputTestCase(unittest.TestCase):
             self._test_multicolumn_pipeline(nlp, valid_samples, invalid_samples, mandatory_output_keys)
 
     @require_tf
+<<<<<<< HEAD
     @unittest.skip("This test is failing intermittently. Skipping it until we resolve.")
+=======
+    @slow
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def test_tf_question_answering(self):
         mandatory_output_keys = {"score", "answer", "start", "end"}
         valid_samples = [
@@ -304,3 +321,33 @@ class MultiColumnInputTestCase(unittest.TestCase):
         for tokenizer, model, config in TF_QA_FINETUNED_MODELS:
             nlp = pipeline(task="question-answering", model=model, config=config, tokenizer=tokenizer, framework="tf")
             self._test_multicolumn_pipeline(nlp, valid_samples, invalid_samples, mandatory_output_keys)
+<<<<<<< HEAD
+=======
+
+
+class PipelineCommonTests(unittest.TestCase):
+
+    pipelines = (
+        NerPipeline,
+        FeatureExtractionPipeline,
+        QuestionAnsweringPipeline,
+        FillMaskPipeline,
+        TextClassificationPipeline,
+    )
+
+    @slow
+    @require_tf
+    def test_tf_defaults(self):
+        # Test that pipelines can be correctly loaded without any argument
+        for default_pipeline in self.pipelines:
+            with self.subTest(msg="Testing Torch defaults with PyTorch and {}".format(default_pipeline.task)):
+                default_pipeline(framework="tf")
+
+    @slow
+    @require_torch
+    def test_pt_defaults(self):
+        # Test that pipelines can be correctly loaded without any argument
+        for default_pipeline in self.pipelines:
+            with self.subTest(msg="Testing Torch defaults with PyTorch and {}".format(default_pipeline.task)):
+                default_pipeline(framework="pt")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

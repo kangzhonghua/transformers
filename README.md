@@ -120,6 +120,7 @@ A series of tests are included for the library and for some example scripts. Lib
 Depending on which framework is installed (TensorFlow 2.0 and/or PyTorch), the irrelevant tests will be skipped. Ensure that both frameworks are installed if you want to execute all tests.
 
 Here's the easiest way to run tests for the library:
+<<<<<<< HEAD
 
 ```bash
 pip install -e ".[testing]"
@@ -134,6 +135,22 @@ pip install -r examples/requirements.txt
 make test-examples
 ```
 
+=======
+
+```bash
+pip install -e ".[testing]"
+make test
+```
+
+and for the examples:
+
+```bash
+pip install -e ".[testing]"
+pip install -r examples/requirements.txt
+make test-examples
+```
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 For details, refer to the [contributing guide](https://github.com/huggingface/transformers/blob/master/CONTRIBUTING.md#tests).
 
 ### Do you want to run a Transformer model on a mobile device?
@@ -163,8 +180,14 @@ At some point in the future, you'll be able to seamlessly move from pre-training
 13. **[XLM-RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/xlmr)** (from Facebook AI), released together with the paper [Unsupervised Cross-lingual Representation Learning at Scale](https://arxiv.org/abs/1911.02116) by Alexis Conneau*, Kartikay Khandelwal*, Naman Goyal, Vishrav Chaudhary, Guillaume Wenzek, Francisco Guzmán, Edouard Grave, Myle Ott, Luke Zettlemoyer and Veselin Stoyanov.
 14. **[MMBT](https://github.com/facebookresearch/mmbt/)** (from Facebook), released together with the paper a [Supervised Multimodal Bitransformers for Classifying Images and Text](https://arxiv.org/pdf/1909.02950.pdf) by Douwe Kiela, Suvrat Bhooshan, Hamed Firooz, Davide Testuggine.
 15. **[FlauBERT](https://github.com/getalp/Flaubert)** (from CNRS) released with the paper [FlauBERT: Unsupervised Language Model Pre-training for French](https://arxiv.org/abs/1912.05372) by Hang Le, Loïc Vial, Jibril Frej, Vincent Segonne, Maximin Coavoux, Benjamin Lecouteux, Alexandre Allauzen, Benoît Crabbé, Laurent Besacier, Didier Schwab.
+<<<<<<< HEAD
 16. **[Other community models](https://huggingface.co/models)**, contributed by the [community](https://huggingface.co/users).
 17. Want to contribute a new model? We have added a **detailed guide and templates** to guide you in the process of adding a new model. You can find them in the [`templates`](./templates) folder of the repository. Be sure to check the [contributing guidelines](./CONTRIBUTING.md) and contact the maintainers or open an issue to collect feedbacks before starting your PR.
+=======
+16. **[BART](https://github.com/pytorch/fairseq/tree/master/examples/bart)** (from Facebook) released with the paper [BART: Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension](https://arxiv.org/pdf/1910.13461.pdf) by Mike Lewis, Yinhan Liu, Naman Goyal, Marjan Ghazvininejad, Abdelrahman Mohamed, Omer Levy, Ves Stoyanov and Luke Zettlemoyer.
+17. **[Other community models](https://huggingface.co/models)**, contributed by the [community](https://huggingface.co/users).
+18. Want to contribute a new model? We have added a **detailed guide and templates** to guide you in the process of adding a new model. You can find them in the [`templates`](./templates) folder of the repository. Be sure to check the [contributing guidelines](./CONTRIBUTING.md) and contact the maintainers or open an issue to collect feedbacks before starting your PR.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 These implementations have been tested on several datasets (see the example scripts) and should match the performances of the original implementations (e.g. ~93 F1 on SQuAD for BERT Whole-Word-Masking, ~88 F1 on RocStories for OpenAI GPT, ~18.3 perplexity on WikiText 103 for Transformer-XL, ~0.916 Peason R coefficient on STS-B for XLNet). You can find more details on the performances in the Examples section of the [documentation](https://huggingface.co/transformers/examples.html).
 
@@ -471,7 +494,11 @@ python ./examples/run_generation.py \
 
 Starting with `v2.2.2`, you can now upload and share your fine-tuned models with the community, using the <abbr title="Command-line interface">CLI</abbr> that's built-in to the library.
 
+<<<<<<< HEAD
 **First, create an account on [https://huggingface.co/join](https://huggingface.co/join)**. Then:
+=======
+**First, create an account on [https://huggingface.co/join](https://huggingface.co/join)**. Optionally, join an existing organization or create a new one. Then:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 ```shell
 transformers-cli login
@@ -490,19 +517,40 @@ transformers-cli upload ./config.json [--filename folder/foobar.json]
 # (you can optionally override its filename, which can be nested inside a folder)
 ```
 
+<<<<<<< HEAD
 Your model will then be accessible through its identifier, a concatenation of your username and the folder name above:
 ```python
 "username/pretrained_model"
 ```
 
 **Please add a README.md model card** to the repo under `model_cards/` with: model description, training params (dataset, preprocessing, hyperparameters), evaluation results, intended uses & limitations, etc.
+=======
+If you want your model to be namespaced by your organization name rather than your username, add the following flag to any command:
+```shell
+--organization organization_name
+```
+
+Your model will then be accessible through its identifier, a concatenation of your username (or organization name) and the folder name above:
+```python
+"username/pretrained_model"
+# or if an org:
+"organization_name/pretrained_model"
+```
+
+**Please add a README.md model card** to the repo under `model_cards/` with: model description, training params (dataset, preprocessing, hardware used, hyperparameters), evaluation results, intended uses & limitations, etc.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 Your model now has a page on huggingface.co/models 🔥
 
 Anyone can load it from code:
 ```python
+<<<<<<< HEAD
 tokenizer = AutoTokenizer.from_pretrained("username/pretrained_model")
 model = AutoModel.from_pretrained("username/pretrained_model")
+=======
+tokenizer = AutoTokenizer.from_pretrained("namespace/pretrained_model")
+model = AutoModel.from_pretrained("namespace/pretrained_model")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ```
 
 List all your files on S3:
@@ -678,7 +726,11 @@ for batch in train_data:
 ## Citation
 
 We now have a paper you can cite for the 🤗 Transformers library:
+<<<<<<< HEAD
 ```
+=======
+```bibtex
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 @article{Wolf2019HuggingFacesTS,
   title={HuggingFace's Transformers: State-of-the-art Natural Language Processing},
   author={Thomas Wolf and Lysandre Debut and Victor Sanh and Julien Chaumond and Clement Delangue and Anthony Moi and Pierric Cistac and Tim Rault and R'emi Louf and Morgan Funtowicz and Jamie Brew},

@@ -29,6 +29,10 @@ from .modeling_tf_utils import (
     TFSequenceSummary,
     TFSharedEmbeddings,
     get_initializer,
+<<<<<<< HEAD:src/transformers/modeling_tf_gpt2.py
+=======
+    keras_serializable,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_tf_gpt2.py
     shape_list,
 )
 
@@ -39,6 +43,10 @@ TF_GPT2_PRETRAINED_MODEL_ARCHIVE_MAP = {
     "gpt2": "https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-tf_model.h5",
     "gpt2-medium": "https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-medium-tf_model.h5",
     "gpt2-large": "https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-large-tf_model.h5",
+<<<<<<< HEAD:src/transformers/modeling_tf_gpt2.py
+=======
+    "gpt2-xl": "https://s3.amazonaws.com/models.huggingface.co/bert/gpt2-xl-tf_model.h5",
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_tf_gpt2.py
     "distilgpt2": "https://s3.amazonaws.com/models.huggingface.co/bert/distilgpt2-tf_model.h5",
 }
 
@@ -139,10 +147,10 @@ class TFAttention(tf.keras.layers.Layer):
         key = self.split_heads(key)
         value = self.split_heads(value)
         if layer_past is not None:
-            past_key, past_value = tf.unstack(layer_past, axis=1)
+            past_key, past_value = tf.unstack(layer_past, axis=0)
             key = tf.concat([past_key, key], axis=-2)
             value = tf.concat([past_value, value], axis=-2)
-        present = tf.stack([key, value], axis=1)
+        present = tf.stack([key, value], axis=0)
 
         attn_outputs = self._attn([query, key, value, attention_mask, head_mask], training=training)
         a = attn_outputs[0]
@@ -196,7 +204,10 @@ class TFBlock(tf.keras.layers.Layer):
         return outputs  # x, present, (attentions)
 
 
+@keras_serializable
 class TFGPT2MainLayer(tf.keras.layers.Layer):
+    config_class = GPT2Config
+
     def __init__(self, config, *inputs, **kwargs):
         super().__init__(*inputs, **kwargs)
         self.output_hidden_states = config.output_hidden_states
@@ -500,6 +511,16 @@ class TFGPT2LMHeadModel(TFGPT2PreTrainedModel):
     def get_output_embeddings(self):
         return self.transformer.wte
 
+<<<<<<< HEAD:src/transformers/modeling_tf_gpt2.py
+=======
+    def prepare_inputs_for_generation(self, inputs, past, **kwargs):
+        # only last token for inputs_ids if past is defined in kwargs
+        if past:
+            inputs = tf.expand_dims(inputs[:, -1], -1)
+
+        return {"inputs": inputs, "past": past}
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_tf_gpt2.py
     @add_start_docstrings_to_callable(GPT2_INPUTS_DOCSTRING)
     def call(self, inputs, **kwargs):
         r"""

@@ -645,7 +645,7 @@ class TransfoXLModel(TransfoXLPreTrainedModel):
         else:
             return None
 
-    def _update_mems(self, hids, mems, qlen, mlen):
+    def _update_mems(self, hids, mems, mlen, qlen):
         # does not deal with None
         if mems is None:
             return None
@@ -935,11 +935,20 @@ class TransfoXLLMHeadModel(TransfoXLPreTrainedModel):
         else:
             return self.crit.out_layers[-1]
 
+<<<<<<< HEAD:src/transformers/modeling_transfo_xl.py
     def prepare_inputs_for_generation(self, input_ids, **model_kwargs):
         inputs = {"input_ids": input_ids}
 
         # if past is defined in model kwargs then use it for faster decoding
         if "past" in model_kwargs and model_kwargs["past"]:
             inputs["mems"] = model_kwargs["past"]
+=======
+    def prepare_inputs_for_generation(self, input_ids, past, **model_kwargs):
+        inputs = {"input_ids": input_ids}
+
+        # if past is defined in model kwargs then use it for faster decoding
+        if past:
+            inputs["mems"] = past
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_transfo_xl.py
 
         return inputs

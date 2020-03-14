@@ -25,6 +25,10 @@ from torch.nn import CrossEntropyLoss, MSELoss
 from .configuration_roberta import RobertaConfig
 from .file_utils import add_start_docstrings, add_start_docstrings_to_callable
 from .modeling_bert import BertEmbeddings, BertLayerNorm, BertModel, BertPreTrainedModel, gelu
+<<<<<<< HEAD
+=======
+from .modeling_utils import create_position_ids_from_input_ids
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 logger = logging.getLogger(__name__)
@@ -56,7 +60,11 @@ class RobertaEmbeddings(BertEmbeddings):
         if position_ids is None:
             if input_ids is not None:
                 # Create the position ids from the input token ids. Any padded tokens remain padded.
+<<<<<<< HEAD
                 position_ids = self.create_position_ids_from_input_ids(input_ids).to(input_ids.device)
+=======
+                position_ids = create_position_ids_from_input_ids(input_ids, self.padding_idx).to(input_ids.device)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             else:
                 position_ids = self.create_position_ids_from_inputs_embeds(inputs_embeds)
 
@@ -64,6 +72,7 @@ class RobertaEmbeddings(BertEmbeddings):
             input_ids, token_type_ids=token_type_ids, position_ids=position_ids, inputs_embeds=inputs_embeds
         )
 
+<<<<<<< HEAD
     def create_position_ids_from_input_ids(self, x):
         """ Replace non-padding symbols with their position numbers. Position numbers begin at
         padding_idx+1. Padding symbols are ignored. This is modified from fairseq's
@@ -76,6 +85,8 @@ class RobertaEmbeddings(BertEmbeddings):
         incremental_indicies = torch.cumsum(mask, dim=1) * mask
         return incremental_indicies + self.padding_idx
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def create_position_ids_from_inputs_embeds(self, inputs_embeds):
         """ We are provided embeddings directly. We cannot infer which are padded so just generate
         sequential position ids.
@@ -275,7 +286,11 @@ class RobertaLMHead(nn.Module):
         x = self.layer_norm(x)
 
         # project back to size of vocabulary with bias
+<<<<<<< HEAD
         x = self.decoder(x) + self.bias
+=======
+        x = self.decoder(x)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         return x
 
@@ -553,13 +568,24 @@ class RobertaForTokenClassification(BertPreTrainedModel):
         logits = self.classifier(sequence_output)
 
         outputs = (logits,) + outputs[2:]  # add hidden states and attention if they are here
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         if labels is not None:
             loss_fct = CrossEntropyLoss()
             # Only keep active parts of the loss
             if attention_mask is not None:
                 active_loss = attention_mask.view(-1) == 1
+<<<<<<< HEAD
                 active_logits = logits.view(-1, self.num_labels)[active_loss]
                 active_labels = labels.view(-1)[active_loss]
+=======
+                active_logits = logits.view(-1, self.num_labels)
+                active_labels = torch.where(
+                    active_loss, labels.view(-1), torch.tensor(loss_fct.ignore_index).type_as(labels)
+                )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                 loss = loss_fct(active_logits, active_labels)
             else:
                 loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))

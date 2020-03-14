@@ -19,6 +19,7 @@ I preprocessed the dataset and splitted it as train / dev (80/20)
 | Dev                    | 2.2 K |
 
 
+<<<<<<< HEAD
 - [Fine-tune on NER script](https://github.com/huggingface/transformers/blob/master/examples/run_ner.py)
 
 ```bash
@@ -36,6 +37,32 @@ I preprocessed the dataset and splitted it as train / dev (80/20)
 
 ```
 
+=======
+- [Fine-tune on NER script provided by Huggingface](https://github.com/huggingface/transformers/blob/master/examples/run_ner.py)
+
+- Labels covered:
+
+```
+B-LOC
+B-MISC
+B-ORG
+B-PER
+I-LOC
+I-MISC
+I-ORG
+I-PER
+O
+```
+
+## Metrics on evaluation set:
+
+|                                                      Metric                                                       |  # score  |
+| :------------------------------------------------------------------------------------: | :-------: |
+| F1                                       | **90.17**  
+| Precision                                | **89.86** | 
+| Recall                                   | **90.47** |    
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ## Comparison:
 
 |                                                      Model                                                       |  # score  |
@@ -44,6 +71,7 @@ I preprocessed the dataset and splitted it as train / dev (80/20)
 | [bert-spanish-cased-finetuned-ner (this one)](https://huggingface.co/mrm8488/bert-spanish-cased-finetuned-ner) | **89.65** |
 |                                              Best Multilingual BERT                                              |   87.38   |
 
+<<<<<<< HEAD
 ```
  ***** All metrics on Eval results  *****
 
@@ -51,6 +79,26 @@ f1 = 0.8965040489828165
 loss = 0.11504213575173258
 precision = 0.893679858239811
 recall = 0.8993461462254805
+=======
+## Model in action
+
+Fast usage with **pipelines**:
+
+```python
+from transformers import pipeline
+
+nlp_ner = pipeline(
+    "ner",
+    model="mrm8488/bert-spanish-cased-finetuned-ner",
+    tokenizer=(
+        'mrm8488/bert-spanish-cased-finetuned-ner',  
+        {"use_fast": False}
+))
+
+nlp_ner(text)
+
+#Output: [{'entity': 'B-LOC', 'score': 0.9998720288276672, 'word': 'Londres'}]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ```
 
 > Created by [Manuel Romero/@mrm8488](https://twitter.com/mrm8488)

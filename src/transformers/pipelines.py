@@ -28,6 +28,10 @@ from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
 
 from .configuration_auto import ALL_PRETRAINED_CONFIG_ARCHIVE_MAP, AutoConfig
+<<<<<<< HEAD
+=======
+from .configuration_bart import BartConfig
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from .configuration_distilbert import DistilBertConfig
 from .configuration_roberta import RobertaConfig
 from .configuration_utils import PretrainedConfig
@@ -279,6 +283,12 @@ class _ScikitCompat(ABC):
 
 class Pipeline(_ScikitCompat):
     """
+<<<<<<< HEAD
+=======
+    The Pipeline class is the class from which all pipelines inherit. Refer to this class for methods shared across
+    different pipelines.
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     Base class implementing pipelined operations.
     Pipeline workflow is defined as a sequence of the following operations:
         Input -> Tokenization -> Model Inference -> Post-Processing (Task dependent) -> Output
@@ -292,6 +302,7 @@ class Pipeline(_ScikitCompat):
     pickle format.
 
     Arguments:
+<<<<<<< HEAD
         **model**: ``(str, PretrainedModel, TFPretrainedModel)``:
             Reference to the model to use through this pipeline.
 
@@ -318,14 +329,50 @@ class Pipeline(_ScikitCompat):
         nlp = pipeline('ner', model='...', config='...', tokenizer='...')
         nlp = NerPipeline(model='...', config='...', tokenizer='...')
         nlp = QuestionAnsweringPipeline(model=AutoModel.from_pretrained('...'), tokenizer='...')
+=======
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+        binary_output (:obj:`bool`, `optional`, defaults to :obj:`False`):
+            Flag indicating if the output the pipeline should happen in a binary format (i.e. pickle) or as raw text.
+
+    Return:
+        :obj:`List` or :obj:`Dict`:
+        Pipeline returns list or dictionary depending on:
+
+         - Whether the user supplied multiple samples
+         - Whether the pipeline exposes multiple fields in the output object
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     default_input_names = None
 
     def __init__(
         self,
+<<<<<<< HEAD
         model,
         tokenizer: PreTrainedTokenizer = None,
+=======
+        model: Union["PreTrainedModel", "TFPreTrainedModel"],
+        tokenizer: PreTrainedTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         modelcard: Optional[ModelCard] = None,
         framework: Optional[str] = None,
         args_parser: ArgumentHandler = None,
@@ -412,7 +459,11 @@ class Pipeline(_ScikitCompat):
         """
         args = ["input_ids", "attention_mask"]
 
+<<<<<<< HEAD
         if not isinstance(self.model.config, (DistilBertConfig, XLMConfig, RobertaConfig)):
+=======
+        if not isinstance(self.model.config, (DistilBertConfig, XLMConfig, RobertaConfig, BartConfig)):
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             args += ["token_type_ids"]
 
         # PR #1548 (CLI) There is an issue with attention_mask
@@ -470,13 +521,53 @@ class Pipeline(_ScikitCompat):
 
 class FeatureExtractionPipeline(Pipeline):
     """
+<<<<<<< HEAD
     Feature extraction pipeline using Model head.
+=======
+    Feature extraction pipeline using Model head. This pipeline extracts the hidden states from the base transformer,
+    which can be used as features in a downstream tasks.
+
+    This feature extraction pipeline can currently be loaded from the :func:`~transformers.pipeline` method using
+    the following task identifier(s):
+
+    - "feature-extraction", for extracting features of a sequence.
+
+    All models may be used for this pipeline. See a list of all models, including community-contributed models on
+    `huggingface.co/models <https://huggingface.co/models>`__.
+
+    Arguments:
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     def __init__(
         self,
+<<<<<<< HEAD
         model,
         tokenizer: PreTrainedTokenizer = None,
+=======
+        model: Union["PreTrainedModel", "TFPreTrainedModel"],
+        tokenizer: PreTrainedTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         modelcard: Optional[ModelCard] = None,
         framework: Optional[str] = None,
         args_parser: ArgumentHandler = None,
@@ -498,7 +589,43 @@ class FeatureExtractionPipeline(Pipeline):
 
 class TextClassificationPipeline(Pipeline):
     """
+<<<<<<< HEAD
     Text classification pipeline using ModelForTextClassification head.
+=======
+    Text classification pipeline using ModelForSequenceClassification head. See the
+    `sequence classification usage <../usage.html#sequence-classification>`__ examples for more information.
+
+    This text classification pipeline can currently be loaded from the :func:`~transformers.pipeline` method using
+    the following task identifier(s):
+
+    - "sentiment-analysis", for classifying sequences according to positive or negative sentiments.
+
+    The models that this pipeline can use are models that have been fine-tuned on a sequence classification task.
+    See the list of available community models fine-tuned on such a task on
+    `huggingface.co/models <https://huggingface.co/models?search=&filter=text-classification>`__.
+
+    Arguments:
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     def __call__(self, *args, **kwargs):
@@ -509,13 +636,55 @@ class TextClassificationPipeline(Pipeline):
 
 class FillMaskPipeline(Pipeline):
     """
+<<<<<<< HEAD
     Masked language modeling prediction pipeline using ModelWithLMHead head.
+=======
+    Masked language modeling prediction pipeline using ModelWithLMHead head. See the
+    `masked language modeling usage <../usage.html#masked-language-modeling>`__ examples for more information.
+
+    This mask filling pipeline can currently be loaded from the :func:`~transformers.pipeline` method using
+    the following task identifier(s):
+
+    - "fill-mask", for predicting masked tokens in a sequence.
+
+    The models that this pipeline can use are models that have been trained with a masked language modeling objective,
+    which includes the bi-directional models in the library.
+    See the list of available community models on
+    `huggingface.co/models <https://huggingface.co/models?search=&filter=lm-head>`__.
+
+    Arguments:
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     def __init__(
         self,
+<<<<<<< HEAD
         model,
         tokenizer: PreTrainedTokenizer = None,
+=======
+        model: Union["PreTrainedModel", "TFPreTrainedModel"],
+        tokenizer: PreTrainedTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         modelcard: Optional[ModelCard] = None,
         framework: Optional[str] = None,
         args_parser: ArgumentHandler = None,
@@ -574,15 +743,56 @@ class FillMaskPipeline(Pipeline):
 
 class NerPipeline(Pipeline):
     """
+<<<<<<< HEAD
     Named Entity Recognition pipeline using ModelForTokenClassification head.
+=======
+    Named Entity Recognition pipeline using ModelForTokenClassification head. See the
+    `named entity recognition usage <../usage.html#named-entity-recognition>`__ examples for more information.
+
+    This token recognition pipeline can currently be loaded from the :func:`~transformers.pipeline` method using
+    the following task identifier(s):
+
+    - "ner", for predicting the classes of tokens in a sequence: person, organisation, location or miscellaneous.
+
+    The models that this pipeline can use are models that have been fine-tuned on a token classification task.
+    See the list of available community models fine-tuned on such a task on
+    `huggingface.co/models <https://huggingface.co/models?search=&filter=token-classification>`__.
+
+    Arguments:
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     default_input_names = "sequences"
 
     def __init__(
         self,
+<<<<<<< HEAD
         model,
         tokenizer: PreTrainedTokenizer = None,
+=======
+        model: Union["PreTrainedModel", "TFPreTrainedModel"],
+        tokenizer: PreTrainedTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         modelcard: Optional[ModelCard] = None,
         framework: Optional[str] = None,
         args_parser: ArgumentHandler = None,
@@ -636,7 +846,11 @@ class NerPipeline(Pipeline):
                 if self.model.config.id2label[label_idx] not in self.ignore_labels:
                     answer += [
                         {
+<<<<<<< HEAD
                             "word": self.tokenizer.decode([int(input_ids[idx])]),
+=======
+                            "word": self.tokenizer.convert_ids_to_tokens(int(input_ids[idx])),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                             "score": score[idx][label_idx].item(),
                             "entity": self.model.config.id2label[label_idx],
                         }
@@ -716,15 +930,56 @@ class QuestionAnsweringArgumentHandler(ArgumentHandler):
 
 class QuestionAnsweringPipeline(Pipeline):
     """
+<<<<<<< HEAD
     Question Answering pipeline using ModelForQuestionAnswering head.
+=======
+    Question Answering pipeline using ModelForQuestionAnswering head. See the
+    `question answering usage <../usage.html#question-answering>`__ examples for more information.
+
+    This question answering can currently be loaded from the :func:`~transformers.pipeline` method using
+    the following task identifier(s):
+
+    - "question-answering", for answering questions given a context.
+
+    The models that this pipeline can use are models that have been fine-tuned on a question answering task.
+    See the list of available community models fine-tuned on such a task on
+    `huggingface.co/models <https://huggingface.co/models?search=&filter=question-answering>`__.
+
+    Arguments:
+        model (:obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`):
+            The model that will be used by the pipeline to make predictions. This needs to be a model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+        tokenizer (:obj:`~transformers.PreTrainedTokenizer`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This object inherits from
+            :class:`~transformers.PreTrainedTokenizer`.
+        modelcard (:obj:`str` or :class:`~transformers.ModelCard`, `optional`, defaults to :obj:`None`):
+            Model card attributed to the model for this pipeline.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+        args_parser (:class:`~transformers.pipelines.ArgumentHandler`, `optional`, defaults to :obj:`None`):
+            Reference to the object in charge of parsing supplied pipeline parameters.
+        device (:obj:`int`, `optional`, defaults to :obj:`-1`):
+            Device ordinal for CPU/GPU supports. Setting this to -1 will leverage CPU, >=0 will run the model
+            on the associated CUDA device id.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     default_input_names = "question,context"
 
     def __init__(
         self,
+<<<<<<< HEAD
         model,
         tokenizer: Optional[PreTrainedTokenizer],
+=======
+        model: Union["PreTrainedModel", "TFPreTrainedModel"],
+        tokenizer: PreTrainedTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         modelcard: Optional[ModelCard] = None,
         framework: Optional[str] = None,
         device: int = -1,
@@ -1003,12 +1258,16 @@ def pipeline(
     model: Optional = None,
     config: Optional[Union[str, PretrainedConfig]] = None,
     tokenizer: Optional[Union[str, PreTrainedTokenizer]] = None,
+<<<<<<< HEAD
     modelcard: Optional[Union[str, ModelCard]] = None,
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     framework: Optional[str] = None,
     **kwargs
 ) -> Pipeline:
     """
     Utility factory method to build a pipeline.
+<<<<<<< HEAD
     Pipeline are made of:
         A Tokenizer instance in charge of mapping raw textual input to token
         A Model instance
@@ -1020,6 +1279,74 @@ def pipeline(
         pipeline('ner', model=AutoModel.from_pretrained(...), tokenizer=AutoTokenizer.from_pretrained(...)
         pipeline('ner', model='dbmdz/bert-large-cased-finetuned-conll03-english', tokenizer='bert-base-cased')
         pipeline('ner', model='https://...pytorch-model.bin', config='https://...config.json', tokenizer='bert-base-cased')
+=======
+
+    Pipeline are made of:
+
+        - A Tokenizer instance in charge of mapping raw textual input to token
+        - A Model instance
+        - Some (optional) post processing for enhancing model's output
+
+
+    Args:
+        task (:obj:`str`):
+            The task defining which pipeline will be returned. Currently accepted tasks are:
+
+            - "feature-extraction": will return a :class:`~transformers.FeatureExtractionPipeline`
+            - "sentiment-analysis": will return a :class:`~transformers.TextClassificationPipeline`
+            - "ner": will return a :class:`~transformers.NerPipeline`
+            - "question-answering": will return a :class:`~transformers.QuestionAnsweringPipeline`
+            - "fill-mask": will return a :class:`~transformers.FillMaskPipeline`
+        model (:obj:`str` or :obj:`~transformers.PreTrainedModel` or :obj:`~transformers.TFPreTrainedModel`, `optional`, defaults to :obj:`None`):
+            The model that will be used by the pipeline to make predictions. This can be :obj:`None`, a string
+            checkpoint identifier or an actual pre-trained model inheriting from
+            :class:`~transformers.PreTrainedModel` for PyTorch and :class:`~transformers.TFPreTrainedModel` for
+            TensorFlow.
+
+            If :obj:`None`, the default of the pipeline will be loaded.
+        config (:obj:`str` or :obj:`~transformers.PretrainedConfig`, `optional`, defaults to :obj:`None`):
+            The configuration that will be used by the pipeline to instantiate the model. This can be :obj:`None`,
+            a string checkpoint identifier or an actual pre-trained model configuration inheriting from
+            :class:`~transformers.PretrainedConfig`.
+
+            If :obj:`None`, the default of the pipeline will be loaded.
+        tokenizer (:obj:`str` or :obj:`~transformers.PreTrainedTokenizer`, `optional`, defaults to :obj:`None`):
+            The tokenizer that will be used by the pipeline to encode data for the model. This can be :obj:`None`,
+            a string checkpoint identifier or an actual pre-trained tokenizer inheriting from
+            :class:`~transformers.PreTrainedTokenizer`.
+
+            If :obj:`None`, the default of the pipeline will be loaded.
+        framework (:obj:`str`, `optional`, defaults to :obj:`None`):
+            The framework to use, either "pt" for PyTorch or "tf" for TensorFlow. The specified framework must be
+            installed.
+
+            If no framework is specified, will default to the one currently installed. If no framework is specified
+            and both frameworks are installed, will default to PyTorch.
+
+    Returns:
+        :class:`~transformers.Pipeline`: Class inheriting from :class:`~transformers.Pipeline`, according to
+        the task.
+
+    Examples::
+
+        from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
+
+        # Sentiment analysis pipeline
+        pipeline('sentiment-analysis')
+
+        # Question answering pipeline, specifying the checkpoint identifier
+        pipeline('question-answering', model='distilbert-base-cased-distilled-squad', tokenizer='bert-base-cased')
+
+        # Named entity recognition pipeline, passing in a specific model and tokenizer
+        model = AutoModelForTokenClassification.from_pretrained("dbmdz/bert-large-cased-finetuned-conll03-english")
+        tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
+        pipeline('ner', model=model, tokenizer=tokenizer)
+
+        # Named entity recognition pipeline, passing a model and configuration with a HTTPS URL.
+        model_url = "https://s3.amazonaws.com/models.huggingface.co/bert/dbmdz/bert-large-cased-finetuned-conll03-english/pytorch_model.bin"
+        config_url = "https://s3.amazonaws.com/models.huggingface.co/bert/dbmdz/bert-large-cased-finetuned-conll03-english/config.json"
+        pipeline('ner', model=model_url, config=config_url, tokenizer='bert-base-cased')
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
     # Retrieve the task
     if task not in SUPPORTED_TASKS:
@@ -1048,6 +1375,7 @@ def pipeline(
                 "Please provided a PretrainedTokenizer class or a path/url/shortcut name to a pretrained tokenizer."
             )
 
+<<<<<<< HEAD
     # Try to infer modelcard from model or config name (if provided as str)
     if modelcard is None:
         # Try to fallback on one of the provided string for model or config (will replace the suffix)
@@ -1055,6 +1383,14 @@ def pipeline(
             modelcard = model
         elif isinstance(config, str):
             modelcard = config
+=======
+    modelcard = None
+    # Try to infer modelcard from model or config name (if provided as str)
+    if isinstance(model, str):
+        modelcard = model
+    elif isinstance(config, str):
+        modelcard = config
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     # Instantiate tokenizer if needed
     if isinstance(tokenizer, (str, tuple)):

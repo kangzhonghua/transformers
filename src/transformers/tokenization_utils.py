@@ -14,7 +14,10 @@
 # limitations under the License.
 """Tokenization classes for OpenAI GPT."""
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 import copy
 import itertools
 import json
@@ -23,6 +26,10 @@ import os
 import re
 from collections import defaultdict
 from contextlib import contextmanager
+<<<<<<< HEAD
+=======
+from typing import List, Optional, Tuple, Union
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 from tokenizers.implementations import BaseTokenizer
 
@@ -79,13 +86,21 @@ def truncate_and_pad(
 
     if pad_to_max_length and (pad_token and pad_token_id >= 0):
         tokenizer.enable_padding(
+<<<<<<< HEAD
             max_length=None,
+=======
+            max_length=max_length,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             direction=padding_side,
             pad_id=pad_token_id,
             pad_type_id=pad_token_type_id,
             pad_token=pad_token,
         )
+<<<<<<< HEAD
     else:
+=======
+    elif pad_to_max_length:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         logger.warning(
             "Disabled padding because no padding token set (pad_token: {}, pad_token_id: {}).\n"
             "To remove this error, you can add a new pad token and then resize model embedding:\n"
@@ -139,6 +154,10 @@ class PreTrainedTokenizer(object):
     pretrained_vocab_files_map = {}
     pretrained_init_configuration = {}
     max_model_input_sizes = {}
+<<<<<<< HEAD
+=======
+    model_input_names = ["token_type_ids", "attention_mask"]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     SPECIAL_TOKENS_ATTRIBUTES = [
         "bos_token",
@@ -153,6 +172,21 @@ class PreTrainedTokenizer(object):
 
     padding_side = "right"
 
+<<<<<<< HEAD
+=======
+    NO_PAD_TOKEN_FOR_BATCH_MSG = (
+        "No padding token is set for this model, therefore no batch can be made with uneven "
+        "sequences. Set a padding token or adjust the lengths of the sequences building the "
+        "batch so that every sequence is of the same length."
+    )
+
+    UNEVEN_SEQUENCES_FOR_BATCH_MSG = (
+        "The sequences building the batch are not of the same size, no tensor "
+        "can be built. Set `pad_to_max_length=True` to pad the smaller sequences"
+        "up to the larger sequence's length."
+    )
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     @property
     def bos_token(self):
         """ Beginning of sentence token (string). Log an error if used while not having been set. """
@@ -286,6 +320,13 @@ class PreTrainedTokenizer(object):
         """ Ids of all the additional special tokens in the vocabulary (list of integers). Log an error if used while not having been set. """
         return self.convert_tokens_to_ids(self.additional_special_tokens)
 
+<<<<<<< HEAD
+=======
+    def get_vocab(self):
+        """ Returns the vocabulary as a dict of {token: index} pairs. `tokenizer.get_vocab()[token]` is equivalent to `tokenizer.convert_tokens_to_ids(token)` when `token` is in the vocab. """
+        raise NotImplementedError()
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def __init__(self, max_len=None, **kwargs):
         self._bos_token = None
         self._eos_token = None
@@ -301,6 +342,10 @@ class PreTrainedTokenizer(object):
 
         # Padding side is right by default and over-riden in subclasses. If specified in the kwargs, it is changed.
         self.padding_side = kwargs.pop("padding_side", self.padding_side)
+<<<<<<< HEAD
+=======
+        self.model_input_names = kwargs.pop("model_input_names", self.model_input_names)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         # Added tokens
         self.added_tokens_encoder = {}
@@ -380,6 +425,10 @@ class PreTrainedTokenizer(object):
         force_download = kwargs.pop("force_download", False)
         resume_download = kwargs.pop("resume_download", False)
         proxies = kwargs.pop("proxies", None)
+<<<<<<< HEAD
+=======
+        local_files_only = kwargs.pop("local_files_only", False)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         s3_models = list(cls.max_model_input_sizes.keys())
         vocab_files = {}
@@ -447,6 +496,10 @@ class PreTrainedTokenizer(object):
                         force_download=force_download,
                         proxies=proxies,
                         resume_download=resume_download,
+<<<<<<< HEAD
+=======
+                        local_files_only=local_files_only,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                     )
         except EnvironmentError:
             if pretrained_model_name_or_path in s3_models:
@@ -832,6 +885,7 @@ class PreTrainedTokenizer(object):
 
     def encode(
         self,
+<<<<<<< HEAD
         text,
         text_pair=None,
         add_special_tokens=True,
@@ -840,6 +894,16 @@ class PreTrainedTokenizer(object):
         truncation_strategy="longest_first",
         pad_to_max_length=False,
         return_tensors=None,
+=======
+        text: str,
+        text_pair: Optional[str] = None,
+        add_special_tokens: bool = True,
+        max_length: Optional[int] = None,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        pad_to_max_length: bool = False,
+        return_tensors: Optional[str] = None,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         **kwargs
     ):
         """
@@ -848,6 +912,7 @@ class PreTrainedTokenizer(object):
         Same as doing ``self.convert_tokens_to_ids(self.tokenize(text))``.
 
         Args:
+<<<<<<< HEAD
             text: The first sequence to be encoded. This can be a string, a list of strings (tokenized string using
                 the `tokenize` method) or a list of integers (tokenized string ids using the `convert_tokens_to_ids`
                 method)
@@ -876,6 +941,45 @@ class PreTrainedTokenizer(object):
                 or PyTorch torch.Tensor instead of a list of python integers.
             add_prefix_space: Only applies to GPT-2 and RoBERTa tokenizers. When `True`, this ensures that the sequence
                 begins with an empty space. False by default except for when using RoBERTa with `add_special_tokens=True`.
+=======
+            text (:obj:`str` or :obj:`List[str]`):
+                The first sequence to be encoded. This can be a string, a list of strings (tokenized string using
+                the `tokenize` method) or a list of integers (tokenized string ids using the `convert_tokens_to_ids`
+                method)
+            text_pair (:obj:`str` or :obj:`List[str]`, `optional`, defaults to :obj:`None`):
+                Optional second sequence to be encoded. This can be a string, a list of strings (tokenized
+                string using the `tokenize` method) or a list of integers (tokenized string ids using the
+                `convert_tokens_to_ids` method)
+            add_special_tokens (:obj:`bool`, `optional`, defaults to :obj:`True`):
+                If set to ``True``, the sequences will be encoded with the special tokens relative
+                to their model.
+            max_length (:obj:`int`, `optional`, defaults to :obj:`None`):
+                If set to a number, will limit the total sequence returned so that it has a maximum length.
+                If there are overflowing tokens, those will be added to the returned dictionary
+            stride (:obj:`int`, `optional`, defaults to ``0``):
+                If set to a number along with max_length, the overflowing tokens returned will contain some tokens
+                from the main sequence returned. The value of this argument defines the number of additional tokens.
+            truncation_strategy (:obj:`str`, `optional`, defaults to `longest_first`):
+                String selected in the following options:
+
+                - 'longest_first' (default) Iteratively reduce the inputs sequence until the input is under max_length
+                  starting from the longest one at each token (when there is a pair of input sequences)
+                - 'only_first': Only truncate the first sequence
+                - 'only_second': Only truncate the second sequence
+                - 'do_not_truncate': Does not truncate (raise an error if the input sequence is longer than max_length)
+            pad_to_max_length (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                If set to True, the returned sequences will be padded according to the model's padding side and
+                padding index, up to their max length. If no max length is specified, the padding is done up to the
+                model's max length. The tokenizer padding sides are handled by the class attribute `padding_side`
+                which can be set to the following strings:
+
+                - 'left': pads on the left of the sequences
+                - 'right': pads on the right of the sequences
+                Defaults to False: no padding.
+            return_tensors (:obj:`str`, `optional`, defaults to :obj:`None`):
+                Can be set to 'tf' or 'pt' to return respectively TensorFlow :obj:`tf.constant`
+                or PyTorch :obj:`torch.Tensor` instead of a list of python integers.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             **kwargs: passed to the `self.tokenize()` method
         """
         encoded_inputs = self.encode_plus(
@@ -894,6 +998,7 @@ class PreTrainedTokenizer(object):
 
     def encode_plus(
         self,
+<<<<<<< HEAD
         text,
         text_pair=None,
         add_special_tokens=True,
@@ -947,6 +1052,81 @@ class PreTrainedTokenizer(object):
             return_overflowing_tokens: (optional) Set to True to return overflowing token information (default False).
             return_special_tokens_mask: (optional) Set to True to return special tokens mask information (default False).
             return_offsets_mapping: (optional) Set to True to return (char_start, char_end) for each token (default False).
+=======
+        text: str,
+        text_pair: Optional[str] = None,
+        add_special_tokens: bool = True,
+        max_length: Optional[int] = None,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        pad_to_max_length: bool = False,
+        return_tensors: Optional[str] = None,
+        return_token_type_ids: Optional[bool] = None,
+        return_attention_mask: Optional[bool] = None,
+        return_overflowing_tokens: bool = False,
+        return_special_tokens_mask: bool = False,
+        return_offsets_mapping: bool = False,
+        **kwargs
+    ):
+        """
+        Returns a dictionary containing the encoded sequence or sequence pair and additional information:
+        the mask for sequence classification and the overflowing elements if a ``max_length`` is specified.
+
+        Args:
+            text (:obj:`str` or :obj:`List[str]`):
+                The first sequence to be encoded. This can be a string, a list of strings (tokenized string using
+                the `tokenize` method) or a list of integers (tokenized string ids using the `convert_tokens_to_ids`
+                method)
+            text_pair (:obj:`str` or :obj:`List[str]`, `optional`, defaults to :obj:`None`):
+                Optional second sequence to be encoded. This can be a string, a list of strings (tokenized
+                string using the `tokenize` method) or a list of integers (tokenized string ids using the
+                `convert_tokens_to_ids` method)
+            add_special_tokens (:obj:`bool`, `optional`, defaults to :obj:`True`):
+                If set to ``True``, the sequences will be encoded with the special tokens relative
+                to their model.
+            max_length (:obj:`int`, `optional`, defaults to :obj:`None`):
+                If set to a number, will limit the total sequence returned so that it has a maximum length.
+                If there are overflowing tokens, those will be added to the returned dictionary
+            stride (:obj:`int`, `optional`, defaults to ``0``):
+                If set to a number along with max_length, the overflowing tokens returned will contain some tokens
+                from the main sequence returned. The value of this argument defines the number of additional tokens.
+            truncation_strategy (:obj:`str`, `optional`, defaults to `longest_first`):
+                String selected in the following options:
+
+                - 'longest_first' (default) Iteratively reduce the inputs sequence until the input is under max_length
+                  starting from the longest one at each token (when there is a pair of input sequences)
+                - 'only_first': Only truncate the first sequence
+                - 'only_second': Only truncate the second sequence
+                - 'do_not_truncate': Does not truncate (raise an error if the input sequence is longer than max_length)
+            pad_to_max_length (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                If set to True, the returned sequences will be padded according to the model's padding side and
+                padding index, up to their max length. If no max length is specified, the padding is done up to the
+                model's max length. The tokenizer padding sides are handled by the class attribute `padding_side`
+                which can be set to the following strings:
+
+                - 'left': pads on the left of the sequences
+                - 'right': pads on the right of the sequences
+                Defaults to False: no padding.
+            return_tensors (:obj:`str`, `optional`, defaults to :obj:`None`):
+                Can be set to 'tf' or 'pt' to return respectively TensorFlow :obj:`tf.constant`
+                or PyTorch :obj:`torch.Tensor` instead of a list of python integers.
+            return_token_type_ids (:obj:`bool`, `optional`, defaults to :obj:`None`):
+                Whether to return token type IDs. If left to the default, will return the token type IDs according
+                to the specific tokenizer's default, defined by the :obj:`return_outputs` attribute.
+
+                `What are token type IDs? <../glossary.html#token-type-ids>`_
+            return_attention_mask (:obj:`bool`, `optional`, defaults to :obj:`none`):
+                Whether to return the attention mask. If left to the default, will return the attention mask according
+                to the specific tokenizer's default, defined by the :obj:`return_outputs` attribute.
+
+                `What are attention masks? <../glossary.html#attention-mask>`__
+            return_overflowing_tokens (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return overflowing token information (default False).
+            return_special_tokens_mask (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return special tokens mask information (default False).
+            return_offsets_mapping (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return (char_start, char_end) for each token (default False).
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                 If using Python's tokenizer, this method will raise NotImplementedError. This one is only available on
                 Rust-based tokenizers inheriting from PreTrainedTokenizerFast.
             **kwargs: passed to the `self.tokenize()` method
@@ -964,6 +1144,7 @@ class PreTrainedTokenizer(object):
                 }
 
             With the fields:
+<<<<<<< HEAD
                 ``input_ids``: list of token ids to be fed to a model
                 ``token_type_ids``: list of token type ids to be fed to a model
                 ``attention_mask``: list of indices specifying which tokens should be attended to by the model
@@ -971,6 +1152,16 @@ class PreTrainedTokenizer(object):
                 ``num_truncated_tokens``: number of overflowing tokens a ``max_length`` is specified
                 ``special_tokens_mask``: if adding special tokens, this is a list of [0, 1], with 0 specifying special added
                 tokens and 1 specifying sequence tokens.
+=======
+
+            - ``input_ids``: list of token ids to be fed to a model
+            - ``token_type_ids``: list of token type ids to be fed to a model
+            - ``attention_mask``: list of indices specifying which tokens should be attended to by the model
+            - ``overflowing_tokens``: list of overflowing tokens if a max length is specified.
+            - ``num_truncated_tokens``: number of overflowing tokens a ``max_length`` is specified
+            - ``special_tokens_mask``: if adding special tokens, this is a list of [0, 1], with 0 specifying special added
+              tokens and 1 specifying sequence tokens.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         """
 
         def get_input_ids(text):
@@ -995,6 +1186,15 @@ class PreTrainedTokenizer(object):
                 "https://github.com/huggingface/transformers/pull/2674"
             )
 
+<<<<<<< HEAD
+=======
+        # Throw an error if we can pad because there is no padding token
+        if pad_to_max_length and self.pad_token_id is None:
+            raise ValueError(
+                "Unable to set proper padding strategy as the tokenizer does not have a padding token. In this case please set the `pad_token` `(tokenizer.pad_token = tokenizer.eos_token e.g.)` or add a new pad token via the function add_special_tokens if you want to use a padding strategy"
+            )
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         first_ids = get_input_ids(text)
         second_ids = get_input_ids(text_pair) if text_pair is not None else None
 
@@ -1015,6 +1215,7 @@ class PreTrainedTokenizer(object):
 
     def batch_encode_plus(
         self,
+<<<<<<< HEAD
         batch_text_or_text_pairs=None,
         add_special_tokens=False,
         max_length=None,
@@ -1024,6 +1225,21 @@ class PreTrainedTokenizer(object):
         return_input_lengths=False,
         return_attention_masks=False,
         return_offsets_mapping=False,
+=======
+        batch_text_or_text_pairs: Union[str, List[str]],
+        add_special_tokens: bool = True,
+        max_length: Optional[int] = None,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        pad_to_max_length: bool = False,
+        return_tensors: Optional[str] = None,
+        return_token_type_ids: Optional[bool] = None,
+        return_attention_masks: Optional[bool] = None,
+        return_overflowing_tokens: bool = False,
+        return_special_tokens_masks: bool = False,
+        return_offsets_mapping: bool = False,
+        return_input_lengths: bool = False,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         **kwargs
     ):
         """
@@ -1031,6 +1247,7 @@ class PreTrainedTokenizer(object):
         the mask for sequence classification and the overflowing elements if a ``max_length`` is specified.
 
         Args:
+<<<<<<< HEAD
             batch_text_or_text_pairs: Batch of sequences or pair of sequences to be encoded.
                 This can be a list of string/string-sequences/int-sequences or a list of pair of
                 string/string-sequences/int-sequence (see details in encode_plus)
@@ -1054,6 +1271,105 @@ class PreTrainedTokenizer(object):
             **kwargs: passed to the `self.tokenize()` method
         """
 
+=======
+            batch_text_or_text_pairs (:obj:`List[str]` or :obj:`List[List[str]]`):
+                Batch of sequences or pair of sequences to be encoded.
+                This can be a list of string/string-sequences/int-sequences or a list of pair of
+                string/string-sequences/int-sequence (see details in encode_plus)
+            add_special_tokens (:obj:`bool`, `optional`, defaults to :obj:`True`):
+                If set to ``True``, the sequences will be encoded with the special tokens relative
+                to their model.
+            max_length (:obj:`int`, `optional`, defaults to :obj:`None`):
+                If set to a number, will limit the total sequence returned so that it has a maximum length.
+                If there are overflowing tokens, those will be added to the returned dictionary
+            stride (:obj:`int`, `optional`, defaults to ``0``):
+                If set to a number along with max_length, the overflowing tokens returned will contain some tokens
+                from the main sequence returned. The value of this argument defines the number of additional tokens.
+            truncation_strategy (:obj:`str`, `optional`, defaults to `longest_first`):
+                String selected in the following options:
+
+                - 'longest_first' (default) Iteratively reduce the inputs sequence until the input is under max_length
+                  starting from the longest one at each token (when there is a pair of input sequences)
+                - 'only_first': Only truncate the first sequence
+                - 'only_second': Only truncate the second sequence
+                - 'do_not_truncate': Does not truncate (raise an error if the input sequence is longer than max_length)
+            pad_to_max_length (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                If set to True, the returned sequences will be padded according to the model's padding side and
+                padding index, up to their max length. If no max length is specified, the padding is done up to the
+                model's max length. The tokenizer padding sides are handled by the class attribute `padding_side`
+                which can be set to the following strings:
+
+                - 'left': pads on the left of the sequences
+                - 'right': pads on the right of the sequences
+                Defaults to False: no padding.
+            return_tensors (:obj:`str`, `optional`, defaults to :obj:`None`):
+                Can be set to 'tf' or 'pt' to return respectively TensorFlow :obj:`tf.constant`
+                or PyTorch :obj:`torch.Tensor` instead of a list of python integers.
+            return_token_type_ids (:obj:`bool`, `optional`, defaults to :obj:`None`):
+                Whether to return token type IDs. If left to the default, will return the token type IDs according
+                to the specific tokenizer's default, defined by the :obj:`return_outputs` attribute.
+
+                `What are token type IDs? <../glossary.html#token-type-ids>`_
+            return_attention_masks (:obj:`bool`, `optional`, defaults to :obj:`none`):
+                Whether to return the attention mask. If left to the default, will return the attention mask according
+                to the specific tokenizer's default, defined by the :obj:`return_outputs` attribute.
+
+                `What are attention masks? <../glossary.html#attention-mask>`__
+            return_overflowing_tokens (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return overflowing token information (default False).
+            return_special_tokens_masks (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return special tokens mask information (default False).
+            return_offsets_mapping (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                Set to True to return (char_start, char_end) for each token (default False).
+                If using Python's tokenizer, this method will raise NotImplementedError. This one is only available on
+                Rust-based tokenizers inheriting from PreTrainedTokenizerFast.
+            return_input_lengths (:obj:`bool`, `optional`, defaults to :obj:`False`):
+                If set the resulting dictionary will include the length of each sample
+            **kwargs: passed to the `self.tokenize()` method
+
+        Return:
+            A Dictionary of shape::
+
+                {
+                    input_ids: list[List[int]],
+                    token_type_ids: list[List[int]] if return_token_type_ids is True (default)
+                    attention_mask: list[List[int]] if return_attention_mask is True (default)
+                    overflowing_tokens: list[List[int]] if a ``max_length`` is specified and return_overflowing_tokens is True
+                    num_truncated_tokens: List[int] if a ``max_length`` is specified and return_overflowing_tokens is True
+                    special_tokens_mask: list[List[int]] if ``add_special_tokens`` if set to ``True`` and return_special_tokens_mask is True
+                }
+
+            With the fields:
+
+            - ``input_ids``: list of token ids to be fed to a model
+            - ``token_type_ids``: list of token type ids to be fed to a model
+            - ``attention_mask``: list of indices specifying which tokens should be attended to by the model
+            - ``overflowing_tokens``: list of overflowing tokens if a max length is specified.
+            - ``num_truncated_tokens``: number of overflowing tokens a ``max_length`` is specified
+            - ``special_tokens_mask``: if adding special tokens, this is a list of [0, 1], with 0 specifying special added
+              tokens and 1 specifying sequence tokens.
+        """
+
+        def get_input_ids(text):
+            if isinstance(text, str):
+                tokens = self.tokenize(text, add_special_tokens=add_special_tokens, **kwargs)
+                return self.convert_tokens_to_ids(tokens)
+            elif isinstance(text, (list, tuple)) and len(text) > 0 and isinstance(text[0], str):
+                return self.convert_tokens_to_ids(text)
+            elif isinstance(text, (list, tuple)) and len(text) > 0 and isinstance(text[0], int):
+                return text
+            else:
+                raise ValueError(
+                    "Input is not valid. Should be a string, a list/tuple of strings or a list/tuple of integers."
+                )
+
+        # Throw an error if we can pad because there is no padding token
+        if pad_to_max_length and self.pad_token_id is None:
+            raise ValueError(
+                "Unable to set proper padding strategy as the tokenizer does not have a padding token. In this case please set the `pad_token` `(tokenizer.pad_token = tokenizer.eos_token e.g.)` or add a new pad token via the function add_special_tokens if you want to use a padding strategy"
+            )
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         if return_offsets_mapping:
             raise NotImplementedError(
                 "return_offset_mapping is not available when using Python tokenizers."
@@ -1063,6 +1379,7 @@ class PreTrainedTokenizer(object):
                 "https://github.com/huggingface/transformers/pull/2674"
             )
 
+<<<<<<< HEAD
         batch_outputs = {}
         for ids_or_pair_ids in batch_text_or_text_pairs:
             if isinstance(ids_or_pair_ids, (list, tuple)):
@@ -1078,6 +1395,48 @@ class PreTrainedTokenizer(object):
                 stride=stride,
                 truncation_strategy=truncation_strategy,
                 return_tensors=None,
+=======
+        input_ids = []
+        for ids_or_pair_ids in batch_text_or_text_pairs:
+            if isinstance(ids_or_pair_ids, (list, tuple)) and len(ids_or_pair_ids) == 2:
+                ids, pair_ids = ids_or_pair_ids
+            else:
+                ids, pair_ids = ids_or_pair_ids, None
+
+            first_ids = get_input_ids(ids)
+            second_ids = get_input_ids(pair_ids) if pair_ids is not None else None
+            input_ids.append((first_ids, second_ids))
+
+        if max_length is None and pad_to_max_length:
+
+            def total_sequence_length(input_pairs):
+                first_ids, second_ids = input_pairs
+                return len(first_ids) + (
+                    self.num_added_tokens()
+                    if second_ids is None
+                    else (len(second_ids) + self.num_added_tokens(pair=True))
+                )
+
+            max_length = max([total_sequence_length(ids) for ids in input_ids])
+
+        batch_outputs = {}
+        for first_ids, second_ids in input_ids:
+            # Prepares a sequence of input id, or a pair of sequences of inputs ids so that it can be used by
+            # the model. It adds special tokens, truncates sequences if overflowing while taking into account
+            # the special tokens and manages a window stride for overflowing tokens
+            outputs = self.prepare_for_model(
+                first_ids,
+                pair_ids=second_ids,
+                max_length=max_length,
+                pad_to_max_length=pad_to_max_length,
+                add_special_tokens=add_special_tokens,
+                stride=stride,
+                truncation_strategy=truncation_strategy,
+                return_attention_mask=return_attention_masks,
+                return_token_type_ids=return_token_type_ids,
+                return_overflowing_tokens=return_overflowing_tokens,
+                return_special_tokens_mask=return_special_tokens_masks,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             )
 
             # Append the non-padded length to the output
@@ -1089,6 +1448,7 @@ class PreTrainedTokenizer(object):
                     batch_outputs[key] = []
                 batch_outputs[key].append(value)
 
+<<<<<<< HEAD
         # Compute longest sequence size
         max_seq_len = max(map(len, batch_outputs["input_ids"]))
 
@@ -1096,10 +1456,13 @@ class PreTrainedTokenizer(object):
             # Allow the model to not give any special attention to padded input
             batch_outputs["attention_mask"] = [[0] * len(v) for v in batch_outputs["input_ids"]]
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         if return_tensors is not None:
 
             # Do the tensor conversion in batch
             for key, value in batch_outputs.items():
+<<<<<<< HEAD
 
                 padded_value = value
                 # verify that the tokenizer has a pad_token_id
@@ -1114,6 +1477,26 @@ class PreTrainedTokenizer(object):
                     batch_outputs[key] = tf.constant(padded_value)
                 elif return_tensors == "pt" and is_torch_available():
                     batch_outputs[key] = torch.tensor(padded_value)
+=======
+                if return_tensors == "tf" and is_tf_available():
+                    try:
+                        batch_outputs[key] = tf.constant(value)
+                    except ValueError:
+                        if None in [item for sequence in value for item in sequence]:
+                            raise ValueError(self.NO_PAD_TOKEN_FOR_BATCH_MSG)
+                        else:
+                            raise ValueError(self.UNEVEN_SEQUENCES_FOR_BATCH_MSG)
+                elif return_tensors == "pt" and is_torch_available():
+                    try:
+                        batch_outputs[key] = torch.tensor(value)
+                    except ValueError:
+                        raise ValueError(self.UNEVEN_SEQUENCES_FOR_BATCH_MSG)
+                    except RuntimeError:
+                        if None in [item for sequence in value for item in sequence]:
+                            raise ValueError(self.NO_PAD_TOKEN_FOR_BATCH_MSG)
+                        else:
+                            raise
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                 elif return_tensors is not None:
                     logger.warning(
                         "Unable to convert output to tensors format {}, PyTorch or TensorFlow is not available.".format(
@@ -1121,6 +1504,7 @@ class PreTrainedTokenizer(object):
                         )
                     )
 
+<<<<<<< HEAD
         # encoder_attention_mask requires 1 for real token, 0 for padding, just invert value
         if return_attention_masks:
             if is_tf_available():
@@ -1128,10 +1512,13 @@ class PreTrainedTokenizer(object):
             else:
                 batch_outputs["attention_mask"] = torch.abs(batch_outputs["attention_mask"] - 1)
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         return batch_outputs
 
     def prepare_for_model(
         self,
+<<<<<<< HEAD
         ids,
         pair_ids=None,
         max_length=None,
@@ -1144,6 +1531,20 @@ class PreTrainedTokenizer(object):
         return_attention_mask=True,
         return_overflowing_tokens=False,
         return_special_tokens_mask=False,
+=======
+        ids: List[int],
+        pair_ids: Optional[List[int]] = None,
+        max_length: Optional[int] = None,
+        add_special_tokens: bool = True,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        pad_to_max_length: bool = False,
+        return_tensors: Optional[str] = None,
+        return_token_type_ids: Optional[bool] = None,
+        return_attention_mask: Optional[bool] = None,
+        return_overflowing_tokens: bool = False,
+        return_special_tokens_mask: bool = False,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     ):
         """
         Prepares a sequence of input id, or a pair of sequences of inputs ids so that it can be used by the model.
@@ -1204,6 +1605,14 @@ class PreTrainedTokenizer(object):
         len_ids = len(ids)
         len_pair_ids = len(pair_ids) if pair else 0
 
+<<<<<<< HEAD
+=======
+        if return_token_type_ids is None:
+            return_token_type_ids = "token_type_ids" in self.model_input_names
+        if return_attention_mask is None:
+            return_attention_mask = "attention_mask" in self.model_input_names
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         encoded_inputs = {}
 
         # Handle max sequence length
@@ -1229,7 +1638,14 @@ class PreTrainedTokenizer(object):
             token_type_ids = [0] * len(ids) + ([1] * len(pair_ids) if pair else [])
 
         if return_special_tokens_mask:
+<<<<<<< HEAD
             encoded_inputs["special_tokens_mask"] = self.get_special_tokens_mask(ids, pair_ids)
+=======
+            if add_special_tokens:
+                encoded_inputs["special_tokens_mask"] = self.get_special_tokens_mask(ids, pair_ids)
+            else:
+                encoded_inputs["special_tokens_mask"] = [0] * len(sequence)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         encoded_inputs["input_ids"] = sequence
         if return_token_type_ids:
@@ -1526,6 +1942,12 @@ class PreTrainedTokenizer(object):
 
 
 class PreTrainedTokenizerFast(PreTrainedTokenizer):
+<<<<<<< HEAD
+=======
+
+    model_input_names = ["token_type_ids", "attention_mask"]
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def __init__(self, tokenizer: BaseTokenizer, **kwargs):
         if tokenizer is None:
             raise ValueError("Provided tokenizer cannot be None")
@@ -1594,16 +2016,33 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
         if self._tokenizer is not None:
             self._tokenizer.add_special_tokens(self.all_special_tokens)
 
+<<<<<<< HEAD
     @staticmethod
     def _convert_encoding(
         encoding,
         return_tensors=None,
         return_token_type_ids=True,
         return_attention_mask=True,
+=======
+    def _convert_encoding(
+        self,
+        encoding,
+        return_tensors=None,
+        return_token_type_ids=None,
+        return_attention_mask=None,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         return_overflowing_tokens=False,
         return_special_tokens_mask=False,
         return_offsets_mapping=False,
     ):
+<<<<<<< HEAD
+=======
+        if return_token_type_ids is None:
+            return_token_type_ids = "token_type_ids" in self.model_input_names
+        if return_attention_mask is None:
+            return_attention_mask = "attention_mask" in self.model_input_names
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         if return_overflowing_tokens and encoding.overflowing is not None:
             encodings = [encoding] + encoding.overflowing
         else:
@@ -1683,6 +2122,7 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
 
     def batch_encode_plus(
         self,
+<<<<<<< HEAD
         batch_text_or_text_pairs=None,
         add_special_tokens=True,
         max_length=None,
@@ -1697,12 +2137,39 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
         return_offsets_mapping=False,
         **kwargs
     ):
+=======
+        batch_text_or_text_pairs: Optional[Union[List[str], List[Tuple[str]]]] = None,
+        add_special_tokens: bool = True,
+        max_length: Optional[int] = None,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        pad_to_max_length: bool = False,
+        return_tensors: Optional[str] = None,
+        return_token_type_ids: Optional[bool] = None,
+        return_attention_mask: Optional[bool] = None,
+        return_overflowing_tokens: bool = False,
+        return_special_tokens_mask: bool = False,
+        return_offsets_mapping: bool = False,
+        **kwargs
+    ):
+        if not add_special_tokens:
+            logger.warning(
+                "Fast tokenizers add special tokens by default. To remove special tokens, please specify"
+                "`add_special_tokens=False` during the initialisation rather than when calling `encode`,"
+                "`encode_plus` or `batch_encode_plus`."
+            )
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         # Needed if we have to return a tensor
         pad_to_max_length = pad_to_max_length or (return_tensors is not None)
 
         # Throw an error if we can pad because there is no padding token
         if pad_to_max_length and self.pad_token_id is None:
+<<<<<<< HEAD
             raise ValueError("Unable to set proper padding strategy as the tokenizer does have padding token")
+=======
+            raise ValueError("Unable to set proper padding strategy as the tokenizer does not have a padding token")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         # Set the truncation and padding strategy and restore the initial configuration
         with truncate_and_pad(
@@ -1770,6 +2237,7 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
 
     def encode_plus(
         self,
+<<<<<<< HEAD
         text,
         text_pair=None,
         add_special_tokens=False,
@@ -1783,6 +2251,21 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
         return_overflowing_tokens=False,
         return_special_tokens_mask=False,
         return_offsets_mapping=False,
+=======
+        text: str,
+        text_pair: Optional[str] = None,
+        add_special_tokens: bool = False,
+        max_length: Optional[int] = None,
+        pad_to_max_length: bool = False,
+        stride: int = 0,
+        truncation_strategy: str = "longest_first",
+        return_tensors: Optional[bool] = None,
+        return_token_type_ids: Optional[bool] = None,
+        return_attention_mask: Optional[bool] = None,
+        return_overflowing_tokens: bool = False,
+        return_special_tokens_mask: bool = False,
+        return_offsets_mapping: bool = False,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         **kwargs
     ):
         batched_input = [(text, text_pair)] if text_pair else [text]
@@ -1819,8 +2302,17 @@ class PreTrainedTokenizerFast(PreTrainedTokenizer):
 
     def save_vocabulary(self, save_directory):
         if os.path.isdir(save_directory):
+<<<<<<< HEAD
             folder, file = save_directory, self.vocab_files_names["vocab_file"]
         else:
             folder, file = os.path.split(os.path.abspath(save_directory))
 
         return tuple(self._tokenizer.save(folder, file))
+=======
+            files = self._tokenizer.save(save_directory)
+        else:
+            folder, file = os.path.split(os.path.abspath(save_directory))
+            files = self._tokenizer.save(folder, name=file)
+
+        return tuple(files)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

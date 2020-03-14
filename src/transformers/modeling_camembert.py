@@ -15,7 +15,10 @@
 # limitations under the License.
 """PyTorch CamemBERT model. """
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 import logging
 
 from .configuration_camembert import CamembertConfig
@@ -23,6 +26,10 @@ from .file_utils import add_start_docstrings
 from .modeling_roberta import (
     RobertaForMaskedLM,
     RobertaForMultipleChoice,
+<<<<<<< HEAD
+=======
+    RobertaForQuestionAnswering,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     RobertaForSequenceClassification,
     RobertaForTokenClassification,
     RobertaModel,
@@ -37,7 +44,10 @@ CAMEMBERT_PRETRAINED_MODEL_ARCHIVE_MAP = {
     "umberto-wikipedia-uncased-v1": "https://s3.amazonaws.com/models.huggingface.co/bert/Musixmatch/umberto-wikipedia-uncased-v1/pytorch_model.bin",
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 CAMEMBERT_START_DOCSTRING = r"""
 
     This model is a PyTorch `torch.nn.Module <https://pytorch.org/docs/stable/nn.html#torch.nn.Module>`_ sub-class.
@@ -46,7 +56,12 @@ CAMEMBERT_START_DOCSTRING = r"""
 
     Parameters:
         config (:class:`~transformers.CamembertConfig`): Model configuration class with all the parameters of the
+<<<<<<< HEAD
             model. Initializing with a config file does not load the weights associated with the model, only the configuration.
+=======
+            model. Initializing with a config file does not load the weights associated with the model, only the
+            configuration.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             Check out the :meth:`~transformers.PreTrainedModel.from_pretrained` method to load the model weights.
 """
 
@@ -121,3 +136,21 @@ class CamembertForTokenClassification(RobertaForTokenClassification):
 
     config_class = CamembertConfig
     pretrained_model_archive_map = CAMEMBERT_PRETRAINED_MODEL_ARCHIVE_MAP
+<<<<<<< HEAD
+=======
+
+
+@add_start_docstrings(
+    """CamemBERT Model with a span classification head on top for extractive question-answering tasks like SQuAD
+    (a linear layers on top of the hidden-states output to compute `span start logits` and `span end logits` """,
+    CAMEMBERT_START_DOCSTRING,
+)
+class CamembertForQuestionAnswering(RobertaForQuestionAnswering):
+    """
+    This class overrides :class:`~transformers.RobertaForQuestionAnswering`. Please check the
+    superclass for the appropriate documentation alongside usage examples.
+    """
+
+    config_class = CamembertConfig
+    pretrained_model_archive_map = CAMEMBERT_PRETRAINED_MODEL_ARCHIVE_MAP
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

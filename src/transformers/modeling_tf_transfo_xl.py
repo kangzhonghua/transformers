@@ -24,7 +24,11 @@ import tensorflow as tf
 from .configuration_transfo_xl import TransfoXLConfig
 from .file_utils import add_start_docstrings, add_start_docstrings_to_callable
 from .modeling_tf_transfo_xl_utilities import TFAdaptiveSoftmaxMask
+<<<<<<< HEAD:src/transformers/modeling_tf_transfo_xl.py
 from .modeling_tf_utils import TFPreTrainedModel, get_initializer, shape_list
+=======
+from .modeling_tf_utils import TFPreTrainedModel, get_initializer, keras_serializable, shape_list
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_tf_transfo_xl.py
 
 
 logger = logging.getLogger(__name__)
@@ -378,7 +382,10 @@ class TFAdaptiveEmbedding(tf.keras.layers.Layer):
         return embed
 
 
+@keras_serializable
 class TFTransfoXLMainLayer(tf.keras.layers.Layer):
+    config_class = TransfoXLConfig
+
     def __init__(self, config, **kwargs):
         super().__init__(**kwargs)
         self.output_attentions = config.output_attentions
@@ -631,9 +638,15 @@ class TFTransfoXLPreTrainedModel(TFPreTrainedModel):
 
 
 TRANSFO_XL_START_DOCSTRING = r"""
+<<<<<<< HEAD:src/transformers/modeling_tf_transfo_xl.py
 
     .. note::
 
+=======
+
+    .. note::
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_tf_transfo_xl.py
         TF 2.0 models accepts two formats as inputs:
 
             - having all inputs as keyword arguments (like PyTorch models), or
@@ -826,3 +839,12 @@ class TFTransfoXLLMHeadModel(TFTransfoXLPreTrainedModel):
             outputs = [softmax_output] + outputs
 
         return outputs  # logits, new_mems, (all hidden states), (all attentions)
+
+    def prepare_inputs_for_generation(self, inputs, past, **model_kwargs):
+        inputs = {"inputs": inputs}
+
+        # if past is defined in model kwargs then use it for faster decoding
+        if past:
+            inputs["mems"] = past
+
+        return inputs

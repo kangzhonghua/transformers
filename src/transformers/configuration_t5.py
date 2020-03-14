@@ -75,9 +75,18 @@ class T5Config(PretrainedConfig):
         dropout_rate=0.1,
         layer_norm_epsilon=1e-6,
         initializer_factor=1.0,
+<<<<<<< HEAD
         **kwargs
     ):
         super().__init__(**kwargs)
+=======
+        is_encoder_decoder=True,
+        **kwargs
+    ):
+        super().__init__(
+            is_encoder_decoder=is_encoder_decoder, **kwargs,
+        )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         self.vocab_size = vocab_size
         self.n_positions = n_positions
         self.d_model = d_model

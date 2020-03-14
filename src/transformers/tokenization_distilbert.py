@@ -58,6 +58,7 @@ PRETRAINED_INIT_CONFIGURATION = {
 class DistilBertTokenizer(BertTokenizer):
     r"""
     Constructs a DistilBertTokenizer.
+<<<<<<< HEAD
     :class:`~transformers.DistilBertTokenizer` is identical to BertTokenizer and runs end-to-end tokenization: punctuation splitting + wordpiece
 
     Args:
@@ -68,12 +69,23 @@ class DistilBertTokenizer(BertTokenizer):
             minimum of this value (if specified) and the underlying BERT model's sequence length.
         never_split: List of tokens which will never be split during tokenization. Only has an effect when
             do_basic_tokenize=True
+=======
+    :class:`~transformers.DistilBertTokenizer` is identical to :class:`~transformers.BertTokenizer` and runs end-to-end
+    tokenization: punctuation splitting + wordpiece.
+
+    Refer to superclass :class:`~transformers.BertTokenizer` for usage examples and documentation concerning
+    parameters.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     """
 
     vocab_files_names = VOCAB_FILES_NAMES
     pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
     max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
     pretrained_init_configuration = PRETRAINED_INIT_CONFIGURATION
+<<<<<<< HEAD
+=======
+    model_input_names = ["attention_mask"]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 class DistilBertTokenizerFast(BertTokenizerFast):
@@ -81,3 +93,7 @@ class DistilBertTokenizerFast(BertTokenizerFast):
     pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
     max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
     pretrained_init_configuration = PRETRAINED_INIT_CONFIGURATION
+<<<<<<< HEAD
+=======
+    model_input_names = ["attention_mask"]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

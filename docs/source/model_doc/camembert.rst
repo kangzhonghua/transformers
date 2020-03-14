@@ -33,7 +33,12 @@ CamembertTokenizer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: transformers.CamembertTokenizer
+<<<<<<< HEAD
     :members:
+=======
+    :members: build_inputs_with_special_tokens, get_special_tokens_mask,
+        create_token_type_ids_from_sequences, save_vocabulary
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 CamembertModel

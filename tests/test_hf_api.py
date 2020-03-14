@@ -21,7 +21,11 @@ import unittest
 import requests
 from requests.exceptions import HTTPError
 
+<<<<<<< HEAD
 from transformers.hf_api import HfApi, HfFolder, PresignedUrl, S3Obj
+=======
+from transformers.hf_api import HfApi, HfFolder, ModelInfo, PresignedUrl, S3Obj
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 USER = "__DUMMY_TRANSFORMERS_USER__"
@@ -36,10 +40,18 @@ FILES = [
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures/empty.txt"),
     ),
 ]
+<<<<<<< HEAD
 
 
 class HfApiCommonTest(unittest.TestCase):
     _api = HfApi(endpoint="https://moon-staging.huggingface.co")
+=======
+ENDPOINT_STAGING = "https://moon-staging.huggingface.co"
+
+
+class HfApiCommonTest(unittest.TestCase):
+    _api = HfApi(endpoint=ENDPOINT_STAGING)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 class HfApiLoginTest(HfApiCommonTest):
@@ -66,8 +78,22 @@ class HfApiEndpointsTest(HfApiCommonTest):
             cls._api.delete_obj(token=cls._token, filename=FILE_KEY)
 
     def test_whoami(self):
+<<<<<<< HEAD
         user = self._api.whoami(token=self._token)
         self.assertEqual(user, USER)
+=======
+        user, orgs = self._api.whoami(token=self._token)
+        self.assertEqual(user, USER)
+        self.assertIsInstance(orgs, list)
+
+    def test_presign_invalid_org(self):
+        with self.assertRaises(HTTPError):
+            _ = self._api.presign(token=self._token, filename="fake_org.txt", organization="fake")
+
+    def test_presign_valid_org(self):
+        urls = self._api.presign(token=self._token, filename="valid_org.txt", organization="valid_org")
+        self.assertIsInstance(urls, PresignedUrl)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     def test_presign(self):
         for FILE_KEY, FILE_PATH in FILES:
@@ -92,6 +118,21 @@ class HfApiEndpointsTest(HfApiCommonTest):
             self.assertIsInstance(o, S3Obj)
 
 
+<<<<<<< HEAD
+=======
+class HfApiPublicTest(unittest.TestCase):
+    def test_staging_model_list(self):
+        _api = HfApi(endpoint=ENDPOINT_STAGING)
+        _ = _api.model_list()
+
+    def test_model_list(self):
+        _api = HfApi()
+        models = _api.model_list()
+        self.assertGreater(len(models), 100)
+        self.assertIsInstance(models[0], ModelInfo)
+
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 class HfFolderTest(unittest.TestCase):
     def test_token_workflow(self):
         """

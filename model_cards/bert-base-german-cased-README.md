@@ -1,10 +1,18 @@
 ---
 language: german
+<<<<<<< HEAD
 thumbnail: https://thumb.tildacdn.com/tild3162-6462-4566-b663-376630376138/-/format/webp/Screenshot_from_2020.png
 ---
 
 # German BERT
 
+=======
+thumbnail: https://static.tildacdn.com/tild6438-3730-4164-b266-613634323466/german_bert.png
+---
+
+# German BERT
+![bert_image](https://static.tildacdn.com/tild6438-3730-4164-b266-613634323466/german_bert.png)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ## Overview
 **Language model:** bert-base-cased   
 **Language:** German  
@@ -68,4 +76,8 @@ Some of our work:
 - [Haystack](https://github.com/deepset-ai/haystack/)
 
 Get in touch:
+<<<<<<< HEAD
 [Twitter](https://twitter.com/deepset_ai) | [LinkedIn](https://www.linkedin.com/company/deepset-ai/) | [Website](https://deepset.ai)  
+=======
+[Twitter](https://twitter.com/deepset_ai) | [LinkedIn](https://www.linkedin.com/company/deepset-ai/) | [Website](https://deepset.ai)  
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

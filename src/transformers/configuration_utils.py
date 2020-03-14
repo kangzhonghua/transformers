@@ -65,20 +65,38 @@ class PretrainedConfig(object):
         self.pruned_heads = kwargs.pop("pruned_heads", {})
 
         # Is decoder is used in encoder-decoder models to differentiate encoder from decoder
+<<<<<<< HEAD
+=======
+        self.is_encoder_decoder = kwargs.pop("is_encoder_decoder", False)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         self.is_decoder = kwargs.pop("is_decoder", False)
 
         # Parameters for sequence generation
         self.max_length = kwargs.pop("max_length", 20)
+<<<<<<< HEAD
         self.do_sample = kwargs.pop("do_sample", False)
+=======
+        self.min_length = kwargs.pop("min_length", 0)
+        self.do_sample = kwargs.pop("do_sample", False)
+        self.early_stopping = kwargs.pop("early_stopping", False)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         self.num_beams = kwargs.pop("num_beams", 1)
         self.temperature = kwargs.pop("temperature", 1.0)
         self.top_k = kwargs.pop("top_k", 50)
         self.top_p = kwargs.pop("top_p", 1.0)
         self.repetition_penalty = kwargs.pop("repetition_penalty", 1.0)
+<<<<<<< HEAD
         self.bos_token_id = kwargs.pop("bos_token_id", 0)
         self.pad_token_id = kwargs.pop("pad_token_id", 0)
         self.eos_token_ids = kwargs.pop("eos_token_ids", 0)
         self.length_penalty = kwargs.pop("length_penalty", 1.0)
+=======
+        self.bos_token_id = kwargs.pop("bos_token_id", None)
+        self.pad_token_id = kwargs.pop("pad_token_id", None)
+        self.eos_token_ids = kwargs.pop("eos_token_ids", None)
+        self.length_penalty = kwargs.pop("length_penalty", 1.0)
+        self.no_repeat_ngram_size = kwargs.pop("no_repeat_ngram_size", 0)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         self.num_return_sequences = kwargs.pop("num_return_sequences", 1)
 
         # Fine-tuning task arguments
@@ -98,6 +116,21 @@ class PretrainedConfig(object):
                 logger.error("Can't set {} with value {} for {}".format(key, value, self))
                 raise err
 
+<<<<<<< HEAD
+=======
+    @property
+    def num_labels(self):
+        return self._num_labels
+
+    @num_labels.setter
+    def num_labels(self, num_labels):
+        self._num_labels = num_labels
+        self.id2label = {i: "LABEL_{}".format(i) for i in range(self.num_labels)}
+        self.id2label = dict((int(key), value) for key, value in self.id2label.items())
+        self.label2id = dict(zip(self.id2label.values(), self.id2label.keys()))
+        self.label2id = dict((key, int(value)) for key, value in self.label2id.items())
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def save_pretrained(self, save_directory):
         """
         Save a configuration object to the directory `save_directory`, so that it
@@ -198,6 +231,10 @@ class PretrainedConfig(object):
         force_download = kwargs.pop("force_download", False)
         resume_download = kwargs.pop("resume_download", False)
         proxies = kwargs.pop("proxies", None)
+<<<<<<< HEAD
+=======
+        local_files_only = kwargs.pop("local_files_only", False)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         if pretrained_config_archive_map is None:
             pretrained_config_archive_map = cls.pretrained_config_archive_map
@@ -219,6 +256,10 @@ class PretrainedConfig(object):
                 force_download=force_download,
                 proxies=proxies,
                 resume_download=resume_download,
+<<<<<<< HEAD
+=======
+                local_files_only=local_files_only,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             )
             # Load config dict
             if resolved_config_file is None:

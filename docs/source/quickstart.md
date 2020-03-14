@@ -220,6 +220,7 @@ print(sequence)
 ```
 
 The model only requires a single token as input as all the previous tokens' key/value pairs are contained in the `past`.
+<<<<<<< HEAD
 
 ### Model2Model example
 
@@ -313,3 +314,5 @@ predicted_index = torch.argmax(predictions[0, -1]).item()
 predicted_token = tokenizer.convert_ids_to_tokens([predicted_index])[0]
 assert predicted_token == 'jim'
 ```
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

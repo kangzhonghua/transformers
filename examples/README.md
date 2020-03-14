@@ -3,7 +3,11 @@
 In this section a few examples are put together. All of these examples work for several models, making use of the very
 similar API between the different models.
 
+<<<<<<< HEAD
 **Important**  
+=======
+**Important**
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 To run the latest versions of the examples, you have to install from source and install some specific requirements for the examples.
 Execute the following steps in a new virtual environment:
 
@@ -15,14 +19,23 @@ pip install -r ./examples/requirements.txt
 ```
 
 | Section                    | Description                                                                                                                                                |
+<<<<<<< HEAD
 |----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [TensorFlow 2.0 models on GLUE](#TensorFlow-2.0-Bert-models-on-GLUE) | Examples running BERT TensorFlow 2.0 model on the GLUE tasks. 
+=======
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------
+| [TensorFlow 2.0 models on GLUE](#TensorFlow-2.0-Bert-models-on-GLUE) | Examples running BERT TensorFlow 2.0 model on the GLUE tasks. |
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 | [Language Model training](#language-model-training) | Fine-tuning (or training from scratch) the library models for language modeling on a text dataset. Causal language modeling for GPT/GPT-2, masked language modeling for BERT/RoBERTa. |
 | [Language Generation](#language-generation) | Conditional text generation using the auto-regressive models of the library: GPT, GPT-2, Transformer-XL and XLNet. |
 | [GLUE](#glue) | Examples running BERT/XLM/XLNet/RoBERTa on the 9 GLUE tasks. Examples feature distributed training as well as half-precision. |
 | [SQuAD](#squad) | Using BERT/RoBERTa/XLNet/XLM for question answering, examples with distributed training. |
 | [Multiple Choice](#multiple-choice) | Examples running BERT/XLNet/RoBERTa on the SWAG/RACE/ARC tasks. |
+<<<<<<< HEAD
 | [Named Entity Recognition](#named-entity-recognition) | Using BERT for Named Entity Recognition (NER) on the CoNLL 2003 dataset, examples with distributed training. |
+=======
+| [Named Entity Recognition](https://github.com/huggingface/transformers/tree/master/examples/ner) | Using BERT for Named Entity Recognition (NER) on the CoNLL 2003 dataset, examples with distributed training. |
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 | [XNLI](#xnli) | Examples running BERT/XLM on the XNLI benchmark. |
 | [Adversarial evaluation of model performances](#adversarial-evaluation-of-model-performances) | Testing a model with adversarial evaluation of natural language inference on the Heuristic Analysis for NLI Systems (HANS) dataset (McCoy et al., 2019.) |
 
@@ -31,6 +44,7 @@ pip install -r ./examples/requirements.txt
 Based on the script [`run_tf_glue.py`](https://github.com/huggingface/transformers/blob/master/examples/run_tf_glue.py).
 
 Fine-tuning the library TensorFlow 2.0 Bert model for sequence classification on the  MRPC task of the GLUE benchmark: [General Language Understanding Evaluation](https://gluebenchmark.com/).
+<<<<<<< HEAD
 
 This script has an option for mixed precision (Automatic Mixed Precision / AMP) to run models on Tensor Cores (NVIDIA Volta/Turing GPUs) and future hardware and an option for XLA, which uses the XLA compiler to reduce model runtime.
 Options are toggled using `USE_XLA` or `USE_AMP` variables in the script.
@@ -50,6 +64,27 @@ Mixed precision (AMP) reduces the training time considerably for the same hardwa
 
 ## Language model training
 
+=======
+
+This script has an option for mixed precision (Automatic Mixed Precision / AMP) to run models on Tensor Cores (NVIDIA Volta/Turing GPUs) and future hardware and an option for XLA, which uses the XLA compiler to reduce model runtime.
+Options are toggled using `USE_XLA` or `USE_AMP` variables in the script.
+These options and the below benchmark are provided by @tlkh.
+
+Quick benchmarks from the script (no other modifications):
+
+| GPU    | Mode | Time (2nd epoch) | Val Acc (3 runs) |
+| --------- | -------- | ----------------------- | ----------------------|
+| Titan V | FP32 | 41s | 0.8438/0.8281/0.8333 |
+| Titan V | AMP | 26s | 0.8281/0.8568/0.8411 |
+| V100    | FP32 | 35s | 0.8646/0.8359/0.8464 |
+| V100    | AMP | 22s | 0.8646/0.8385/0.8411 |
+| 1080 Ti | FP32 | 55s | - |
+
+Mixed precision (AMP) reduces the training time considerably for the same hardware and hyper-parameters (same batch size was used).
+
+## Language model training
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 Based on the script [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/run_language_modeling.py).
 
 Fine-tuning (or training from scratch) the library models for language modeling on a text dataset for GPT, GPT-2, BERT and RoBERTa (DistilBERT 
@@ -88,7 +123,7 @@ a score of ~20 perplexity once fine-tuned on the dataset.
 
 The following example fine-tunes RoBERTa on WikiText-2. Here too, we're using the raw WikiText-2. The loss is different
 as BERT/RoBERTa have a bidirectional mechanism; we're therefore using the same loss that was used during their
-pre-training: masked language modeling. 
+pre-training: masked language modeling.
 
 In accordance to the RoBERTa paper, we use dynamic masking rather than static masking. The model may, therefore, converge
 slightly slower (over-fitting takes more epochs).
@@ -130,8 +165,8 @@ python run_generation.py \
 
 Based on the script [`run_glue.py`](https://github.com/huggingface/transformers/blob/master/examples/run_glue.py).
 
-Fine-tuning the library models for sequence classification on the GLUE benchmark: [General Language Understanding 
-Evaluation](https://gluebenchmark.com/). This script can fine-tune the following models: BERT, XLM, XLNet and RoBERTa. 
+Fine-tuning the library models for sequence classification on the GLUE benchmark: [General Language Understanding
+Evaluation](https://gluebenchmark.com/). This script can fine-tune the following models: BERT, XLM, XLNet and RoBERTa.
 
 GLUE is made up of a total of 9 different tasks. We get the following results on the dev set of the benchmark with an
 uncased  BERT base model (the checkpoint `bert-base-uncased`). All experiments ran single V100 GPUs with a total train
@@ -179,20 +214,20 @@ python run_glue.py \
 
 where task name can be one of CoLA, SST-2, MRPC, STS-B, QQP, MNLI, QNLI, RTE, WNLI.
 
-The dev set results will be present within the text file `eval_results.txt` in the specified output_dir. 
-In case of MNLI, since there are two separate dev sets (matched and mismatched), there will be a separate 
+The dev set results will be present within the text file `eval_results.txt` in the specified output_dir.
+In case of MNLI, since there are two separate dev sets (matched and mismatched), there will be a separate
 output folder called `/tmp/MNLI-MM/` in addition to `/tmp/MNLI/`.
 
-The code has not been tested with half-precision training with apex on any GLUE task apart from MRPC, MNLI, 
-CoLA, SST-2. The following section provides details on how to run half-precision training with MRPC. With that being 
-said, there shouldn’t be any issues in running half-precision training with the remaining GLUE tasks as well, 
+The code has not been tested with half-precision training with apex on any GLUE task apart from MRPC, MNLI,
+CoLA, SST-2. The following section provides details on how to run half-precision training with MRPC. With that being
+said, there shouldn’t be any issues in running half-precision training with the remaining GLUE tasks as well,
 since the data processor for each task inherits from the base class DataProcessor.
 
 ### MRPC
 
 #### Fine-tuning example
 
-The following examples fine-tune BERT on the Microsoft Research Paraphrase Corpus (MRPC) corpus and runs in less 
+The following examples fine-tune BERT on the Microsoft Research Paraphrase Corpus (MRPC) corpus and runs in less
 than 10 minutes on a single K-80 and in 27 seconds (!) on single tesla V100 16GB with apex installed.
 
 Before running any one of these GLUE tasks you should download the
@@ -219,12 +254,12 @@ python run_glue.py \
 ```
 
 Our test ran on a few seeds with [the original implementation hyper-
-parameters](https://github.com/google-research/bert#sentence-and-sentence-pair-classification-tasks) gave evaluation 
+parameters](https://github.com/google-research/bert#sentence-and-sentence-pair-classification-tasks) gave evaluation
 results between 84% and 88%.
 
 #### Using Apex and mixed-precision
 
-Using Apex and 16 bit precision, the fine-tuning on MRPC only takes 27 seconds. First install 
+Using Apex and 16 bit precision, the fine-tuning on MRPC only takes 27 seconds. First install
 [apex](https://github.com/NVIDIA/apex), then run the following example:
 
 ```bash
@@ -360,8 +395,13 @@ Based on the script [`run_squad.py`](https://github.com/huggingface/transformers
 
 #### Fine-tuning BERT on SQuAD1.0
 
+<<<<<<< HEAD
 This example code fine-tunes BERT on the SQuAD1.0 dataset. It runs in 24 min (with BERT-base) or 68 min (with BERT-large) 
 on a single tesla V100 16GB. The data for SQuAD can be downloaded with the following links and should be saved in a 
+=======
+This example code fine-tunes BERT on the SQuAD1.0 dataset. It runs in 24 min (with BERT-base) or 68 min (with BERT-large)
+on a single tesla V100 16GB. The data for SQuAD can be downloaded with the following links and should be saved in a
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 $SQUAD_DIR directory.
 
 * [train-v1.1.json](https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json)
@@ -379,7 +419,7 @@ export SQUAD_DIR=/path/to/SQUAD
 
 python run_squad.py \
   --model_type bert \
-  --model_name_or_path bert-base-cased \
+  --model_name_or_path bert-base-uncased \
   --do_train \
   --do_eval \
   --do_lower_case \
@@ -442,14 +482,23 @@ This example code fine-tunes XLNet on both SQuAD1.0 and SQuAD2.0 dataset. See ab
 ```bash
 export SQUAD_DIR=/path/to/SQUAD
 
+<<<<<<< HEAD
 python /data/home/hlu/transformers/examples/run_squad.py \
+=======
+python run_squad.py \
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     --model_type xlnet \
     --model_name_or_path xlnet-large-cased \
     --do_train \
     --do_eval \
     --do_lower_case \
+<<<<<<< HEAD
     --train_file /data/home/hlu/notebooks/NLP/examples/question_answering/train-v1.1.json \
     --predict_file /data/home/hlu/notebooks/NLP/examples/question_answering/dev-v1.1.json \
+=======
+    --train_file $SQUAD_DIR/train-v1.1.json \
+    --predict_file $SQUAD_DIR/dev-v1.1.json \
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     --learning_rate 3e-5 \
     --num_train_epochs 2 \
     --max_seq_length 384 \
@@ -516,6 +565,7 @@ Larger batch size may improve the performance while costing more memory.
 
 
 
+<<<<<<< HEAD
 ## Named Entity Recognition
 
 Based on the scripts [`run_ner.py`](https://github.com/huggingface/transformers/blob/master/examples/run_ner.py) for Pytorch and
@@ -695,6 +745,8 @@ On the test dataset the following results could be achieved:
 micro avg     0.8722    0.8774    0.8748     13869
 macro avg     0.8712    0.8774    0.8740     13869
 ```
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 ## XNLI
 
@@ -705,7 +757,11 @@ Based on the script [`run_xnli.py`](https://github.com/huggingface/transformers/
 #### Fine-tuning on XNLI
 
 This example code fine-tunes mBERT (multi-lingual BERT) on the XNLI dataset. It runs in 106 mins
+<<<<<<< HEAD
 on a single tesla V100 16GB. The data for XNLI can be downloaded with the following links and should be both saved (and un-zipped) in a 
+=======
+on a single tesla V100 16GB. The data for XNLI can be downloaded with the following links and should be both saved (and un-zipped) in a
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 `$XNLI_DIR` directory.
 
 * [XNLI 1.0](https://www.nyu.edu/projects/bowman/xnli/XNLI-1.0.zip)

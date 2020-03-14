@@ -23,6 +23,7 @@ to 1,800+ times faster than vanilla Transformers during evaluation. Notably, we 
 of bpc/perplexity to 0.99 on enwiki8, 1.08 on text8, 18.3 on WikiText-103, 21.8 on One Billion Word, and 54.5 on
 Penn Treebank (without finetuning). When trained only on WikiText-103, Transformer-XL manages to generate reasonably
 coherent, novel text articles with thousands of tokens.*
+<<<<<<< HEAD
 
 Tips:
 
@@ -31,6 +32,16 @@ Tips:
 - Transformer-XL is one of the few models that has no sequence length limit.
 
 
+=======
+
+Tips:
+
+- Transformer-XL uses relative sinusoidal positional embeddings. Padding can be done on the left or on the right.
+  The original implementation trains on SQuAD with padding on the left, therefore the padding defaults are set to left.
+- Transformer-XL is one of the few models that has no sequence length limit.
+
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 TransfoXLConfig
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -42,7 +53,7 @@ TransfoXLTokenizer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: transformers.TransfoXLTokenizer
-    :members:
+    :members: save_vocabulary
 
 
 TransfoXLModel

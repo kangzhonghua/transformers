@@ -198,10 +198,17 @@ For a list that includes community-uploaded models, refer to `https://huggingfac
 |                   | ``distilbert-base-multilingual-cased``                     | | 6-layer, 768-hidden, 12-heads, 134M parameters                                                                                      |
 |                   |                                                            | | The multilingual DistilBERT model distilled from the Multilingual BERT model `bert-base-multilingual-cased` checkpoint.             |
 |                   |                                                            | (see `details <https://github.com/huggingface/transformers/tree/master/examples/distillation>`__)                                     |
+<<<<<<< HEAD
 +-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
 | CTRL              | ``ctrl``                                                   | | 48-layer, 1280-hidden, 16-heads, 1.6B parameters                                                                                    |
 |                   |                                                            | | Salesforce's Large-sized CTRL English model                                                                                         |
 +-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+=======
++-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| CTRL              | ``ctrl``                                                   | | 48-layer, 1280-hidden, 16-heads, 1.6B parameters                                                                                    |
+|                   |                                                            | | Salesforce's Large-sized CTRL English model                                                                                         |
++-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 | CamemBERT         | ``camembert-base``                                         | | 12-layer, 768-hidden, 12-heads, 110M parameters                                                                                     |
 |                   |                                                            | | CamemBERT using the BERT-base architecture                                                                                          |
 |                   |                                                            | (see `details <https://github.com/pytorch/fairseq/tree/master/examples/camembert>`__)                                                 |
@@ -275,6 +282,19 @@ For a list that includes community-uploaded models, refer to `https://huggingfac
 |                   |                                                            | | FlauBERT large architecture                                                                                                         |
 |                   |                                                            | (see `details <https://github.com/getalp/Flaubert>`__)                                                                                |
 +-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+<<<<<<< HEAD
+=======
++-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+| Bart              | ``bart-large``                                             | | 12-layer, 1024-hidden, 16-heads, 406M parameters                                                                                    |
+|                   |                                                            | (see `details <https://github.com/pytorch/fairseq/tree/master/examples/bart>`_)                                                       |
+|                   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+|                   | ``bart-large-mnli``                                        | | Adds a 2 layer classification head with 1 million parameters                                                                        |
+|                   |                                                            | | bart-large base architecture with a classification head, finetuned on MNLI                                                          |
+|                   +------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+|                   | ``bart-large-cnn``                                         | | 12-layer, 1024-hidden, 16-heads, 406M parameters       (same as base)                                                               |
+|                   |                                                            | | bart-large base architecture finetuned on cnn summarization task                                                                    |
++-------------------+------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 .. <https://huggingface.co/transformers/examples.html>`__

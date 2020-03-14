@@ -26,13 +26,25 @@ class UserCommands(BaseTransformersCLICommand):
         s3_parser = parser.add_parser("s3", help="{ls, rm} Commands to interact with the files you upload on S3.")
         s3_subparsers = s3_parser.add_subparsers(help="s3 related commands")
         ls_parser = s3_subparsers.add_parser("ls")
+<<<<<<< HEAD
         ls_parser.set_defaults(func=lambda args: ListObjsCommand(args))
         rm_parser = s3_subparsers.add_parser("rm")
         rm_parser.add_argument("filename", type=str, help="individual object filename to delete from S3.")
+=======
+        ls_parser.add_argument("--organization", type=str, help="Optional: organization namespace.")
+        ls_parser.set_defaults(func=lambda args: ListObjsCommand(args))
+        rm_parser = s3_subparsers.add_parser("rm")
+        rm_parser.add_argument("filename", type=str, help="individual object filename to delete from S3.")
+        rm_parser.add_argument("--organization", type=str, help="Optional: organization namespace.")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         rm_parser.set_defaults(func=lambda args: DeleteObjCommand(args))
         # upload
         upload_parser = parser.add_parser("upload")
         upload_parser.add_argument("path", type=str, help="Local path of the folder or individual file to upload.")
+<<<<<<< HEAD
+=======
+        upload_parser.add_argument("--organization", type=str, help="Optional: organization namespace.")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         upload_parser.add_argument(
             "--filename", type=str, default=None, help="Optional: override individual object filename on S3."
         )
@@ -91,8 +103,15 @@ class WhoamiCommand(BaseUserCommand):
             print("Not logged in")
             exit()
         try:
+<<<<<<< HEAD
             user = self._api.whoami(token)
             print(user)
+=======
+            user, orgs = self._api.whoami(token)
+            print(user)
+            if orgs:
+                print(ANSI.bold("orgs: "), ",".join(orgs))
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         except HTTPError as e:
             print(e)
 
@@ -130,7 +149,11 @@ class ListObjsCommand(BaseUserCommand):
             print("Not logged in")
             exit(1)
         try:
+<<<<<<< HEAD
             objs = self._api.list_objs(token)
+=======
+            objs = self._api.list_objs(token, organization=self.args.organization)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         except HTTPError as e:
             print(e)
             exit(1)
@@ -148,7 +171,11 @@ class DeleteObjCommand(BaseUserCommand):
             print("Not logged in")
             exit(1)
         try:
+<<<<<<< HEAD
             self._api.delete_obj(token, filename=self.args.filename)
+=======
+            self._api.delete_obj(token, filename=self.args.filename, organization=self.args.organization)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         except HTTPError as e:
             print(e)
             exit(1)
@@ -195,8 +222,20 @@ class UploadCommand(BaseUserCommand):
             )
             exit(1)
 
+<<<<<<< HEAD
         for filepath, filename in files:
             print("About to upload file {} to S3 under filename {}".format(ANSI.bold(filepath), ANSI.bold(filename)))
+=======
+        user, _ = self._api.whoami(token)
+        namespace = self.args.organization if self.args.organization is not None else user
+
+        for filepath, filename in files:
+            print(
+                "About to upload file {} to S3 under filename {} and namespace {}".format(
+                    ANSI.bold(filepath), ANSI.bold(filename), ANSI.bold(namespace)
+                )
+            )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         choice = input("Proceed? [Y/n] ").lower()
         if not (choice == "" or choice == "y" or choice == "yes"):
@@ -204,6 +243,12 @@ class UploadCommand(BaseUserCommand):
             exit()
         print(ANSI.bold("Uploading... This might take a while if files are large"))
         for filepath, filename in files:
+<<<<<<< HEAD
             access_url = self._api.presign_and_upload(token=token, filename=filename, filepath=filepath)
+=======
+            access_url = self._api.presign_and_upload(
+                token=token, filename=filename, filepath=filepath, organization=self.args.organization
+            )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             print("Your file now lives at:")
             print(access_url)

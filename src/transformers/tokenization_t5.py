@@ -98,6 +98,15 @@ class T5Tokenizer(PreTrainedTokenizer):
             additional_special_tokens=additional_special_tokens,
             **kwargs,
         )
+<<<<<<< HEAD
+=======
+        self.max_len_single_sentence = (
+            self.max_len
+        )  # no default special tokens - you can update this value if you add special tokens
+        self.max_len_sentences_pair = (
+            self.max_len
+        )  # no default special tokens - you can update this value if you add special tokens
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         try:
             import sentencepiece as spm
@@ -119,6 +128,14 @@ class T5Tokenizer(PreTrainedTokenizer):
     def vocab_size(self):
         return self.sp_model.get_piece_size() + self._extra_ids
 
+<<<<<<< HEAD
+=======
+    def get_vocab(self):
+        vocab = {self.convert_ids_to_tokens(i): i for i in range(self.vocab_size)}
+        vocab.update(self.added_tokens_encoder)
+        return vocab
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def __getstate__(self):
         state = self.__dict__.copy()
         state["sp_model"] = None

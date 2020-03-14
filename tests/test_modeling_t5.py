@@ -20,7 +20,11 @@ from transformers import is_torch_available
 
 from .test_configuration_common import ConfigTester
 from .test_modeling_common import ModelTesterMixin, ids_tensor
+<<<<<<< HEAD
 from .utils import CACHE_DIR, require_torch, slow
+=======
+from .utils import CACHE_DIR, require_torch, slow, torch_device
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 if is_torch_available():
@@ -125,6 +129,10 @@ class T5ModelTest(ModelTesterMixin, unittest.TestCase):
             decoder_lm_labels,
         ):
             model = T5Model(config=config)
+<<<<<<< HEAD
+=======
+            model.to(torch_device)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             model.eval()
             decoder_output, encoder_output = model(
                 encoder_input_ids=encoder_input_ids,
@@ -157,6 +165,10 @@ class T5ModelTest(ModelTesterMixin, unittest.TestCase):
             decoder_lm_labels,
         ):
             model = T5WithLMHeadModel(config=config)
+<<<<<<< HEAD
+=======
+            model.to(torch_device)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             model.eval()
             outputs = model(
                 encoder_input_ids=encoder_input_ids,
@@ -164,7 +176,12 @@ class T5ModelTest(ModelTesterMixin, unittest.TestCase):
                 decoder_attention_mask=decoder_attention_mask,
                 decoder_lm_labels=decoder_lm_labels,
             )
+<<<<<<< HEAD
             loss, prediction_scores = outputs[0], outputs[1]
+=======
+            loss, prediction_scores, encoder_features = outputs
+            self.parent.assertEqual(len(outputs), 3)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             result = {
                 "loss": loss,
                 "prediction_scores": prediction_scores,

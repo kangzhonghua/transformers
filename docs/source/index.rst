@@ -61,6 +61,10 @@ The library currently contains PyTorch and Tensorflow implementations, pre-train
     quickstart
     glossary
     pretrained_models
+<<<<<<< HEAD
+=======
+    usage
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     model_sharing
     examples
     notebooks
@@ -79,6 +83,7 @@ The library currently contains PyTorch and Tensorflow implementations, pre-train
     main_classes/configuration
     main_classes/model
     main_classes/tokenizer
+    main_classes/pipelines
     main_classes/optimizer_schedules
     main_classes/processors
 
@@ -99,4 +104,9 @@ The library currently contains PyTorch and Tensorflow implementations, pre-train
     model_doc/camembert
     model_doc/albert
     model_doc/xlmroberta
+<<<<<<< HEAD
     model_doc/flaubert
+=======
+    model_doc/flaubert
+    model_doc/bart
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

@@ -5,7 +5,11 @@ Overview
 ~~~~~~~~~~~~~~~~~~~~~
 
 OpenAI GPT-2 model was proposed in
+<<<<<<< HEAD
 `Language Models are Unsupervised Multitask Learners`_
+=======
+`Language Models are Unsupervised Multitask Learners <https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf>`_
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 by Alec Radford*, Jeffrey Wu*, Rewon Child, David Luan, Dario Amodei** and Ilya Sutskever**.
 It's a causal (unidirectional) transformer pre-trained using  language modeling on a very large
 corpus of ~40 GB of text data.
@@ -46,7 +50,7 @@ GPT2Tokenizer
 ~~~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: transformers.GPT2Tokenizer
-    :members:
+    :members: save_vocabulary
 
 
 GPT2Model

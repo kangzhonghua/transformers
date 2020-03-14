@@ -64,7 +64,11 @@ if stale_egg_info.exists():
 extras = {}
 
 extras["mecab"] = ["mecab-python3"]
+<<<<<<< HEAD
 extras["sklearn"] = ["scikit-learn"]
+=======
+extras["sklearn"] = ["scikit-learn==0.22.1"]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 extras["tf"] = ["tensorflow"]
 extras["tf-cpu"] = ["tensorflow-cpu"]
 extras["torch"] = ["torch"]
@@ -79,7 +83,11 @@ extras["dev"] = extras["testing"] + extras["quality"] + ["mecab-python3", "sciki
 
 setup(
     name="transformers",
+<<<<<<< HEAD
     version="2.5.0",
+=======
+    version="2.5.1",
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     author="Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Sam Shleifer, Google AI Language Team Authors, Open AI team Authors, Facebook AI Authors, Carnegie Mellon University Authors",
     author_email="thomas@huggingface.co",
     description="State-of-the-art Natural Language Processing for TensorFlow 2.0 and PyTorch",
@@ -92,7 +100,11 @@ setup(
     packages=find_packages("src"),
     install_requires=[
         "numpy",
+<<<<<<< HEAD
         "tokenizers == 0.5.0",
+=======
+        "tokenizers == 0.5.2",
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         # accessing files from S3 directly
         "boto3",
         # filesystem locks e.g. to prevent parallel downloads

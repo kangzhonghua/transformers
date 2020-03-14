@@ -2,7 +2,11 @@
 # There's no way to ignore "F401 '...' imported but unused" warnings in this
 # module, but to preserve other warnings. So, don't check this module at all.
 
+<<<<<<< HEAD
 __version__ = "2.5.0"
+=======
+__version__ = "2.5.1"
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 # Work around to update TensorFlow's absl.logging threshold which alters the
 # default Python logging output behavior when present.
@@ -21,6 +25,10 @@ import logging
 
 from .configuration_albert import ALBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, AlbertConfig
 from .configuration_auto import ALL_PRETRAINED_CONFIG_ARCHIVE_MAP, AutoConfig
+<<<<<<< HEAD
+=======
+from .configuration_bart import BartConfig
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from .configuration_bert import BERT_PRETRAINED_CONFIG_ARCHIVE_MAP, BertConfig
 from .configuration_camembert import CAMEMBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, CamembertConfig
 from .configuration_ctrl import CTRL_PRETRAINED_CONFIG_ARCHIVE_MAP, CTRLConfig
@@ -106,6 +114,10 @@ from .pipelines import (
 )
 from .tokenization_albert import AlbertTokenizer
 from .tokenization_auto import AutoTokenizer
+<<<<<<< HEAD
+=======
+from .tokenization_bart import BartTokenizer
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from .tokenization_bert import BasicTokenizer, BertTokenizer, BertTokenizerFast, WordpieceTokenizer
 from .tokenization_bert_japanese import BertJapaneseTokenizer, CharacterTokenizer, MecabTokenizer
 from .tokenization_camembert import CamembertTokenizer
@@ -134,7 +146,11 @@ if is_sklearn_available():
 
 # Modeling
 if is_torch_available():
+<<<<<<< HEAD
     from .modeling_utils import PreTrainedModel, prune_layer, Conv1D
+=======
+    from .modeling_utils import PreTrainedModel, prune_layer, Conv1D, top_k_top_p_filtering
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     from .modeling_auto import (
         AutoModel,
         AutoModelForPreTraining,
@@ -204,6 +220,14 @@ if is_torch_available():
         XLMForQuestionAnsweringSimple,
         XLM_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
+<<<<<<< HEAD
+=======
+    from .modeling_bart import (
+        BartForSequenceClassification,
+        BartModel,
+        BartForConditionalGeneration,
+    )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     from .modeling_roberta import (
         RobertaForMaskedLM,
         RobertaModel,
@@ -218,6 +242,10 @@ if is_torch_available():
         CamembertModel,
         CamembertForSequenceClassification,
         CamembertForTokenClassification,
+<<<<<<< HEAD
+=======
+        CamembertForQuestionAnswering,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         CAMEMBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
     from .modeling_distilbert import (
@@ -237,7 +265,11 @@ if is_torch_available():
         CamembertForTokenClassification,
         CAMEMBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
+<<<<<<< HEAD
     from .modeling_encoder_decoder import PreTrainedEncoderDecoder, Model2Model
+=======
+    from .modeling_encoder_decoder import PreTrainedEncoderDecoder
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     from .modeling_t5 import (
         T5PreTrainedModel,
         T5Model,
@@ -251,6 +283,10 @@ if is_torch_available():
         AlbertForMaskedLM,
         AlbertForSequenceClassification,
         AlbertForQuestionAnswering,
+<<<<<<< HEAD
+=======
+        AlbertForTokenClassification,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         load_tf_weights_in_albert,
         ALBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
@@ -286,7 +322,17 @@ if is_torch_available():
 
 # TensorFlow
 if is_tf_available():
+<<<<<<< HEAD
     from .modeling_tf_utils import TFPreTrainedModel, TFSharedEmbeddings, TFSequenceSummary, shape_list
+=======
+    from .modeling_tf_utils import (
+        TFPreTrainedModel,
+        TFSharedEmbeddings,
+        TFSequenceSummary,
+        shape_list,
+        tf_top_k_top_p_filtering,
+    )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     from .modeling_tf_auto import (
         TFAutoModel,
         TFAutoModelForPreTraining,

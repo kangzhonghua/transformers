@@ -142,3 +142,9 @@ debug.env
 
 # vim
 .*.swp
+<<<<<<< HEAD
+=======
+
+#ctags
+tags
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

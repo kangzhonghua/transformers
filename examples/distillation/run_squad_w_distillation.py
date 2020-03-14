@@ -39,6 +39,12 @@ from transformers import (
     DistilBertConfig,
     DistilBertForQuestionAnswering,
     DistilBertTokenizer,
+<<<<<<< HEAD
+=======
+    RobertaConfig,
+    RobertaForQuestionAnswering,
+    RobertaTokenizer,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     XLMConfig,
     XLMForQuestionAnswering,
     XLMTokenizer,
@@ -73,6 +79,10 @@ MODEL_CLASSES = {
     "xlnet": (XLNetConfig, XLNetForQuestionAnswering, XLNetTokenizer),
     "xlm": (XLMConfig, XLMForQuestionAnswering, XLMTokenizer),
     "distilbert": (DistilBertConfig, DistilBertForQuestionAnswering, DistilBertTokenizer),
+<<<<<<< HEAD
+=======
+    "roberta": (RobertaConfig, RobertaForQuestionAnswering, RobertaTokenizer),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 }
 
 
@@ -716,7 +726,7 @@ def main():
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1 or args.no_cuda:
         device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
-        args.n_gpu = torch.cuda.device_count()
+        args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)

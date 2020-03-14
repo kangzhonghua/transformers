@@ -222,9 +222,15 @@ class TFRobertaModelIntegrationTest(unittest.TestCase):
         self.assertEqual(list(output.numpy().shape), expected_shape)
         # compare the actual values for a slice.
         expected_slice = tf.constant(
+<<<<<<< HEAD:tests/test_modeling_tf_roberta.py
             [[[33.8843, -4.3107, 22.7779], [4.6533, -2.8099, 13.6252], [1.8222, -3.6898, 8.8600]]]
         )
         self.assertTrue(numpy.allclose(output[:, :3, :3].numpy(), expected_slice.numpy(), atol=1e-3))
+=======
+            [[[33.8802, -4.3103, 22.7761], [4.6539, -2.8098, 13.6253], [1.8228, -3.6898, 8.8600]]]
+        )
+        self.assertTrue(numpy.allclose(output[:, :3, :3].numpy(), expected_slice.numpy(), atol=1e-4))
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_tf_roberta.py
 
     @slow
     def test_inference_no_head(self):
@@ -234,9 +240,15 @@ class TFRobertaModelIntegrationTest(unittest.TestCase):
         output = model(input_ids)[0]
         # compare the actual values for a slice.
         expected_slice = tf.constant(
+<<<<<<< HEAD:tests/test_modeling_tf_roberta.py
             [[[-0.0231, 0.0782, 0.0074], [-0.1854, 0.0539, -0.0174], [0.0548, 0.0799, 0.1687]]]
         )
         self.assertTrue(numpy.allclose(output[:, :3, :3].numpy(), expected_slice.numpy(), atol=1e-3))
+=======
+            [[[-0.0231, 0.0782, 0.0074], [-0.1854, 0.0540, -0.0175], [0.0548, 0.0799, 0.1687]]]
+        )
+        self.assertTrue(numpy.allclose(output[:, :3, :3].numpy(), expected_slice.numpy(), atol=1e-4))
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_tf_roberta.py
 
     @slow
     def test_inference_classification_head(self):
@@ -247,4 +259,8 @@ class TFRobertaModelIntegrationTest(unittest.TestCase):
         expected_shape = [1, 3]
         self.assertEqual(list(output.numpy().shape), expected_shape)
         expected_tensor = tf.constant([[-0.9469, 0.3913, 0.5118]])
+<<<<<<< HEAD:tests/test_modeling_tf_roberta.py
         self.assertTrue(numpy.allclose(output.numpy(), expected_tensor.numpy(), atol=1e-3))
+=======
+        self.assertTrue(numpy.allclose(output.numpy(), expected_tensor.numpy(), atol=1e-4))
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_tf_roberta.py

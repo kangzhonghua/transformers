@@ -39,6 +39,12 @@ class TFOpenAIGPTModelTest(TFModelTesterMixin, unittest.TestCase):
     all_model_classes = (
         (TFOpenAIGPTModel, TFOpenAIGPTLMHeadModel, TFOpenAIGPTDoubleHeadsModel) if is_tf_available() else ()
     )
+<<<<<<< HEAD:tests/test_modeling_tf_openai_gpt.py
+=======
+    all_generative_model_classes = (
+        (TFOpenAIGPTLMHeadModel,) if is_tf_available() else ()
+    )  # TODO (PVP): Add Double HeadsModel when generate() function is changed accordingly
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_tf_openai_gpt.py
 
     class TFOpenAIGPTModelTester(object):
         def __init__(
@@ -235,3 +241,38 @@ class TFOpenAIGPTModelTest(TFModelTesterMixin, unittest.TestCase):
         for model_name in list(TF_OPENAI_GPT_PRETRAINED_MODEL_ARCHIVE_MAP.keys())[:1]:
             model = TFOpenAIGPTModel.from_pretrained(model_name, cache_dir=CACHE_DIR)
             self.assertIsNotNone(model)
+<<<<<<< HEAD:tests/test_modeling_tf_openai_gpt.py
+=======
+
+
+class TFOPENAIGPTModelLanguageGenerationTest(unittest.TestCase):
+    @slow
+    def test_lm_generate_openai_gpt(self):
+        model = TFOpenAIGPTLMHeadModel.from_pretrained("openai-gpt")
+        input_ids = tf.convert_to_tensor([[481, 4735, 544]], dtype=tf.int32)  # the president is
+        expected_output_ids = [
+            481,
+            4735,
+            544,
+            246,
+            963,
+            870,
+            762,
+            239,
+            244,
+            40477,
+            244,
+            249,
+            719,
+            881,
+            487,
+            544,
+            240,
+            244,
+            603,
+            481,
+        ]  # the president is a very good man. " \n " i\'m sure he is, " said the
+
+        output_ids = model.generate(input_ids, do_sample=False)
+        self.assertListEqual(output_ids[0].numpy().tolist(), expected_output_ids)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:tests/test_modeling_tf_openai_gpt.py

@@ -17,7 +17,11 @@
 import io
 import os
 from os.path import expanduser
+<<<<<<< HEAD
 from typing import List
+=======
+from typing import Dict, List, Optional, Tuple
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 import requests
 from tqdm import tqdm
@@ -27,6 +31,13 @@ ENDPOINT = "https://huggingface.co"
 
 
 class S3Obj:
+<<<<<<< HEAD
+=======
+    """
+    Data structure that represents a file belonging to the current user.
+    """
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def __init__(self, filename: str, LastModified: str, ETag: str, Size: int, **kwargs):
         self.filename = filename
         self.LastModified = LastModified
@@ -41,6 +52,53 @@ class PresignedUrl:
         self.type = type  # mime-type to send to S3.
 
 
+<<<<<<< HEAD
+=======
+class S3Object:
+    """
+    Data structure that represents a public file accessible on our S3.
+    """
+
+    def __init__(
+        self,
+        key: str,  # S3 object key
+        etag: str,
+        lastModified: str,
+        size: int,
+        rfilename: str,  # filename relative to config.json
+        **kwargs
+    ):
+        self.key = key
+        self.etag = etag
+        self.lastModified = lastModified
+        self.size = size
+        self.rfilename = rfilename
+
+
+class ModelInfo:
+    """
+    Info about a public model accessible from our S3.
+    """
+
+    def __init__(
+        self,
+        modelId: str,  # id of model
+        key: str,  # S3 object key of config.json
+        author: Optional[str] = None,
+        downloads: Optional[int] = None,
+        tags: List[str] = [],
+        siblings: List[Dict] = [],  # list of files that constitute the model
+        **kwargs
+    ):
+        self.modelId = modelId
+        self.key = key
+        self.author = author
+        self.downloads = downloads
+        self.tags = tags
+        self.siblings = [S3Object(**x) for x in siblings]
+
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 class HfApi:
     def __init__(self, endpoint=None):
         self.endpoint = endpoint if endpoint is not None else ENDPOINT
@@ -61,7 +119,11 @@ class HfApi:
         d = r.json()
         return d["token"]
 
+<<<<<<< HEAD
     def whoami(self, token: str) -> str:
+=======
+    def whoami(self, token: str) -> Tuple[str, List[str]]:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         """
         Call HF API to know "whoami"
         """
@@ -69,7 +131,11 @@ class HfApi:
         r = requests.get(path, headers={"authorization": "Bearer {}".format(token)})
         r.raise_for_status()
         d = r.json()
+<<<<<<< HEAD
         return d["user"]
+=======
+        return d["user"], d["orgs"]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     def logout(self, token: str) -> None:
         """
@@ -79,24 +145,44 @@ class HfApi:
         r = requests.post(path, headers={"authorization": "Bearer {}".format(token)})
         r.raise_for_status()
 
+<<<<<<< HEAD
     def presign(self, token: str, filename: str) -> PresignedUrl:
+=======
+    def presign(self, token: str, filename: str, organization: Optional[str] = None) -> PresignedUrl:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         """
         Call HF API to get a presigned url to upload `filename` to S3.
         """
         path = "{}/api/presign".format(self.endpoint)
+<<<<<<< HEAD
         r = requests.post(path, headers={"authorization": "Bearer {}".format(token)}, json={"filename": filename})
+=======
+        r = requests.post(
+            path,
+            headers={"authorization": "Bearer {}".format(token)},
+            json={"filename": filename, "organization": organization},
+        )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         r.raise_for_status()
         d = r.json()
         return PresignedUrl(**d)
 
+<<<<<<< HEAD
     def presign_and_upload(self, token: str, filename: str, filepath: str) -> str:
+=======
+    def presign_and_upload(self, token: str, filename: str, filepath: str, organization: Optional[str] = None) -> str:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         """
         Get a presigned url, then upload file to S3.
 
         Outputs:
             url: Read-only url for the stored file on S3.
         """
+<<<<<<< HEAD
         urls = self.presign(token, filename=filename)
+=======
+        urls = self.presign(token, filename=filename, organization=organization)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         # streaming upload:
         # https://2.python-requests.org/en/master/user/advanced/#streaming-uploads
         #
@@ -111,23 +197,56 @@ class HfApi:
             pf.close()
         return urls.access
 
+<<<<<<< HEAD
     def list_objs(self, token: str) -> List[S3Obj]:
         """
         Call HF API to list all stored files for user.
         """
         path = "{}/api/listObjs".format(self.endpoint)
         r = requests.get(path, headers={"authorization": "Bearer {}".format(token)})
+=======
+    def list_objs(self, token: str, organization: Optional[str] = None) -> List[S3Obj]:
+        """
+        Call HF API to list all stored files for user (or one of their organizations).
+        """
+        path = "{}/api/listObjs".format(self.endpoint)
+        params = {"organization": organization} if organization is not None else None
+        r = requests.get(path, params=params, headers={"authorization": "Bearer {}".format(token)})
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         r.raise_for_status()
         d = r.json()
         return [S3Obj(**x) for x in d]
 
+<<<<<<< HEAD
     def delete_obj(self, token: str, filename: str):
+=======
+    def delete_obj(self, token: str, filename: str, organization: Optional[str] = None):
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         """
         Call HF API to delete a file stored by user
         """
         path = "{}/api/deleteObj".format(self.endpoint)
+<<<<<<< HEAD
         r = requests.delete(path, headers={"authorization": "Bearer {}".format(token)}, json={"filename": filename})
         r.raise_for_status()
+=======
+        r = requests.delete(
+            path,
+            headers={"authorization": "Bearer {}".format(token)},
+            json={"filename": filename, "organization": organization},
+        )
+        r.raise_for_status()
+
+    def model_list(self) -> List[ModelInfo]:
+        """
+        Get the public list of all the models on huggingface, including the community models
+        """
+        path = "{}/api/models".format(self.endpoint)
+        r = requests.get(path)
+        r.raise_for_status()
+        d = r.json()
+        return [ModelInfo(**x) for x in d]
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 class TqdmProgressFileReader:

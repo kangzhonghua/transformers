@@ -21,6 +21,10 @@ from collections import OrderedDict
 from .configuration_auto import (
     AlbertConfig,
     AutoConfig,
+<<<<<<< HEAD
+=======
+    BartConfig,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     BertConfig,
     CamembertConfig,
     CTRLConfig,
@@ -41,8 +45,20 @@ from .modeling_albert import (
     AlbertForMaskedLM,
     AlbertForQuestionAnswering,
     AlbertForSequenceClassification,
+<<<<<<< HEAD
     AlbertModel,
 )
+=======
+    AlbertForTokenClassification,
+    AlbertModel,
+)
+from .modeling_bart import (
+    BART_PRETRAINED_MODEL_ARCHIVE_MAP,
+    BartForConditionalGeneration,
+    BartForSequenceClassification,
+    BartModel,
+)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from .modeling_bert import (
     BERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     BertForMaskedLM,
@@ -70,7 +86,11 @@ from .modeling_distilbert import (
 )
 from .modeling_flaubert import (
     FLAUBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
+<<<<<<< HEAD
     FlaubertForQuestionAnswering,
+=======
+    FlaubertForQuestionAnsweringSimple,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     FlaubertForSequenceClassification,
     FlaubertModel,
     FlaubertWithLMHeadModel,
@@ -89,7 +109,11 @@ from .modeling_t5 import T5_PRETRAINED_MODEL_ARCHIVE_MAP, T5Model, T5WithLMHeadM
 from .modeling_transfo_xl import TRANSFO_XL_PRETRAINED_MODEL_ARCHIVE_MAP, TransfoXLLMHeadModel, TransfoXLModel
 from .modeling_xlm import (
     XLM_PRETRAINED_MODEL_ARCHIVE_MAP,
+<<<<<<< HEAD
     XLMForQuestionAnswering,
+=======
+    XLMForQuestionAnsweringSimple,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     XLMForSequenceClassification,
     XLMModel,
     XLMWithLMHeadModel,
@@ -103,7 +127,11 @@ from .modeling_xlm_roberta import (
 )
 from .modeling_xlnet import (
     XLNET_PRETRAINED_MODEL_ARCHIVE_MAP,
+<<<<<<< HEAD
     XLNetForQuestionAnswering,
+=======
+    XLNetForQuestionAnsweringSimple,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     XLNetForSequenceClassification,
     XLNetForTokenClassification,
     XLNetLMHeadModel,
@@ -118,6 +146,10 @@ ALL_PRETRAINED_MODEL_ARCHIVE_MAP = dict(
     (key, value)
     for pretrained_map in [
         BERT_PRETRAINED_MODEL_ARCHIVE_MAP,
+<<<<<<< HEAD
+=======
+        BART_PRETRAINED_MODEL_ARCHIVE_MAP,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         OPENAI_GPT_PRETRAINED_MODEL_ARCHIVE_MAP,
         TRANSFO_XL_PRETRAINED_MODEL_ARCHIVE_MAP,
         GPT2_PRETRAINED_MODEL_ARCHIVE_MAP,
@@ -142,6 +174,10 @@ MODEL_MAPPING = OrderedDict(
         (AlbertConfig, AlbertModel),
         (CamembertConfig, CamembertModel),
         (XLMRobertaConfig, XLMRobertaModel),
+<<<<<<< HEAD
+=======
+        (BartConfig, BartModel),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         (RobertaConfig, RobertaModel),
         (BertConfig, BertModel),
         (OpenAIGPTConfig, OpenAIGPTModel),
@@ -161,6 +197,10 @@ MODEL_FOR_PRETRAINING_MAPPING = OrderedDict(
         (AlbertConfig, AlbertForMaskedLM),
         (CamembertConfig, CamembertForMaskedLM),
         (XLMRobertaConfig, XLMRobertaForMaskedLM),
+<<<<<<< HEAD
+=======
+        (BartConfig, BartForConditionalGeneration),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         (RobertaConfig, RobertaForMaskedLM),
         (BertConfig, BertForPreTraining),
         (OpenAIGPTConfig, OpenAIGPTLMHeadModel),
@@ -180,6 +220,10 @@ MODEL_WITH_LM_HEAD_MAPPING = OrderedDict(
         (AlbertConfig, AlbertForMaskedLM),
         (CamembertConfig, CamembertForMaskedLM),
         (XLMRobertaConfig, XLMRobertaForMaskedLM),
+<<<<<<< HEAD
+=======
+        (BartConfig, BartForConditionalGeneration),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         (RobertaConfig, RobertaForMaskedLM),
         (BertConfig, BertForMaskedLM),
         (OpenAIGPTConfig, OpenAIGPTLMHeadModel),
@@ -198,6 +242,10 @@ MODEL_FOR_SEQUENCE_CLASSIFICATION_MAPPING = OrderedDict(
         (AlbertConfig, AlbertForSequenceClassification),
         (CamembertConfig, CamembertForSequenceClassification),
         (XLMRobertaConfig, XLMRobertaForSequenceClassification),
+<<<<<<< HEAD
+=======
+        (BartConfig, BartForSequenceClassification),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         (RobertaConfig, RobertaForSequenceClassification),
         (BertConfig, BertForSequenceClassification),
         (XLNetConfig, XLNetForSequenceClassification),
@@ -212,9 +260,15 @@ MODEL_FOR_QUESTION_ANSWERING_MAPPING = OrderedDict(
         (AlbertConfig, AlbertForQuestionAnswering),
         (RobertaConfig, RobertaForQuestionAnswering),
         (BertConfig, BertForQuestionAnswering),
+<<<<<<< HEAD
         (XLNetConfig, XLNetForQuestionAnswering),
         (FlaubertConfig, FlaubertForQuestionAnswering),
         (XLMConfig, XLMForQuestionAnswering),
+=======
+        (XLNetConfig, XLNetForQuestionAnsweringSimple),
+        (FlaubertConfig, FlaubertForQuestionAnsweringSimple),
+        (XLMConfig, XLMForQuestionAnsweringSimple),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     ]
 )
 
@@ -226,6 +280,10 @@ MODEL_FOR_TOKEN_CLASSIFICATION_MAPPING = OrderedDict(
         (RobertaConfig, RobertaForTokenClassification),
         (BertConfig, BertForTokenClassification),
         (XLNetConfig, XLNetForTokenClassification),
+<<<<<<< HEAD
+=======
+        (AlbertConfig, AlbertForTokenClassification),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     ]
 )
 
@@ -352,16 +410,23 @@ class AutoModel(object):
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
 
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model. (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or automatically loaded:
 
                 - If a configuration is provided with ``config``, ``**kwargs`` will be directly passed to the underlying model's ``__init__`` method (we assume all relevant updates to the configuration have already been done)
                 - If a configuration is not provided, ``kwargs`` will be first passed to the configuration class initialization function (:func:`~transformers.PretrainedConfig.from_pretrained`). Each key of ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModel.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModel.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModel.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
@@ -496,6 +561,7 @@ class AutoModelForPreTraining(object):
             output_loading_info: (`optional`) boolean:
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model.
                 (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or
                 automatically loaded:
@@ -508,12 +574,18 @@ class AutoModelForPreTraining(object):
                   ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute
                   with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration
                   attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModelForPreTraining.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModelForPreTraining.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModelForPreTraining.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
@@ -650,6 +722,7 @@ class AutoModelWithLMHead(object):
             output_loading_info: (`optional`) boolean:
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model.
                 (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or
                 automatically loaded:
@@ -662,12 +735,18 @@ class AutoModelWithLMHead(object):
                   ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute
                   with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration
                   attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModelWithLMHead.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModelWithLMHead.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModelWithLMHead.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
@@ -807,16 +886,23 @@ class AutoModelForSequenceClassification(object):
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
 
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model. (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or automatically loaded:
 
                 - If a configuration is provided with ``config``, ``**kwargs`` will be directly passed to the underlying model's ``__init__`` method (we assume all relevant updates to the configuration have already been done)
                 - If a configuration is not provided, ``kwargs`` will be first passed to the configuration class initialization function (:func:`~transformers.PretrainedConfig.from_pretrained`). Each key of ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModelForSequenceClassification.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModelForSequenceClassification.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModelForSequenceClassification.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
@@ -950,16 +1036,23 @@ class AutoModelForQuestionAnswering(object):
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
 
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model. (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or automatically loaded:
 
                 - If a configuration is provided with ``config``, ``**kwargs`` will be directly passed to the underlying model's ``__init__`` method (we assume all relevant updates to the configuration have already been done)
                 - If a configuration is not provided, ``kwargs`` will be first passed to the configuration class initialization function (:func:`~transformers.PretrainedConfig.from_pretrained`). Each key of ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModelForQuestionAnswering.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModelForQuestionAnswering.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModelForQuestionAnswering.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
@@ -1094,16 +1187,23 @@ class AutoModelForTokenClassification:
                 Set to ``True`` to also return a dictionnary containing missing keys, unexpected keys and error messages.
 
             kwargs: (`optional`) Remaining dictionary of keyword arguments:
+<<<<<<< HEAD
                 Can be used to update the configuration object (after it being loaded) and initiate the model. (e.g. ``output_attention=True``). Behave differently depending on whether a `config` is provided or automatically loaded:
 
                 - If a configuration is provided with ``config``, ``**kwargs`` will be directly passed to the underlying model's ``__init__`` method (we assume all relevant updates to the configuration have already been done)
                 - If a configuration is not provided, ``kwargs`` will be first passed to the configuration class initialization function (:func:`~transformers.PretrainedConfig.from_pretrained`). Each key of ``kwargs`` that corresponds to a configuration attribute will be used to override said attribute with the supplied ``kwargs`` value. Remaining keys that do not correspond to any configuration attribute will be passed to the underlying model's ``__init__`` function.
+=======
+                These arguments will be passed to the configuration and the model.
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         Examples::
 
             model = AutoModelForTokenClassification.from_pretrained('bert-base-uncased')    # Download model and configuration from S3 and cache.
             model = AutoModelForTokenClassification.from_pretrained('./test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+<<<<<<< HEAD
             model = AutoModelForTokenClassification.from_pretrained('bert-base-uncased', output_attention=True)  # Update configuration during loading
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             assert model.config.output_attention == True
             # Loading from a TF checkpoint file instead of a PyTorch model (slower)
             config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')

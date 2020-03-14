@@ -214,6 +214,10 @@ def cached_path(
     user_agent=None,
     extract_compressed_file=False,
     force_extract=False,
+<<<<<<< HEAD
+=======
+    local_files_only=False,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ) -> Optional[str]:
     """
     Given something that might be a URL (or might be a local path),
@@ -250,6 +254,10 @@ def cached_path(
             proxies=proxies,
             resume_download=resume_download,
             user_agent=user_agent,
+<<<<<<< HEAD
+=======
+            local_files_only=local_files_only,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         )
     elif os.path.exists(url_or_filename):
         # File, and it exists.
@@ -378,7 +386,18 @@ def http_get(url, temp_file, proxies=None, resume_size=0, user_agent=None):
 
 
 def get_from_cache(
+<<<<<<< HEAD
     url, cache_dir=None, force_download=False, proxies=None, etag_timeout=10, resume_download=False, user_agent=None
+=======
+    url,
+    cache_dir=None,
+    force_download=False,
+    proxies=None,
+    etag_timeout=10,
+    resume_download=False,
+    user_agent=None,
+    local_files_only=False,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 ) -> Optional[str]:
     """
     Given a URL, look for the corresponding file in the local cache.
@@ -395,6 +414,7 @@ def get_from_cache(
 
     os.makedirs(cache_dir, exist_ok=True)
 
+<<<<<<< HEAD
     # Get eTag to add to filename, if it exists.
     if url.startswith("s3://"):
         etag = s3_etag(url, proxies=proxies)
@@ -407,6 +427,21 @@ def get_from_cache(
                 etag = response.headers.get("ETag")
         except (EnvironmentError, requests.exceptions.Timeout):
             etag = None
+=======
+    etag = None
+    if not local_files_only:
+        # Get eTag to add to filename, if it exists.
+        if url.startswith("s3://"):
+            etag = s3_etag(url, proxies=proxies)
+        else:
+            try:
+                response = requests.head(url, allow_redirects=True, proxies=proxies, timeout=etag_timeout)
+                if response.status_code == 200:
+                    etag = response.headers.get("ETag")
+            except (EnvironmentError, requests.exceptions.Timeout):
+                # etag is already None
+                pass
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     filename = url_to_filename(url, etag)
 
@@ -427,6 +462,18 @@ def get_from_cache(
             if len(matching_files) > 0:
                 return os.path.join(cache_dir, matching_files[-1])
             else:
+<<<<<<< HEAD
+=======
+                # If files cannot be found and local_files_only=True,
+                # the models might've been found if local_files_only=False
+                # Notify the user about that
+                if local_files_only:
+                    raise ValueError(
+                        "Cannot find the requested files in the cached path and outgoing traffic has been"
+                        " disabled. To enable model look-ups and downloads online, set 'local_files_only'"
+                        " to False."
+                    )
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
                 return None
 
     # From now on, etag is not None.

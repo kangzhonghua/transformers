@@ -73,11 +73,20 @@ class GPT2Config(PretrainedConfig):
                 Argument used when doing sequence summary. Used in for the multiple choice head in
                 :class:`~transformers.GPT2DoubleHeadsModel`.
                 Is one of the following options:
+<<<<<<< HEAD
                     - 'last' => take the last token hidden state (like XLNet)
                     - 'first' => take the first token hidden state (like Bert)
                     - 'mean' => take the mean of all tokens hidden states
                     - 'cls_index' => supply a Tensor of classification token position (GPT/GPT-2)
                     - 'attn' => Not implemented now, use multi-head attention
+=======
+
+                - 'last' => take the last token hidden state (like XLNet)
+                - 'first' => take the first token hidden state (like Bert)
+                - 'mean' => take the mean of all tokens hidden states
+                - 'cls_index' => supply a Tensor of classification token position (GPT/GPT-2)
+                - 'attn' => Not implemented now, use multi-head attention
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             summary_use_proj (:obj:`boolean`, optional, defaults to :obj:`True`):
                 Argument used when doing sequence summary. Used in for the multiple choice head in
                 :class:`~transformers.GPT2DoubleHeadsModel`.
@@ -134,6 +143,11 @@ class GPT2Config(PretrainedConfig):
         summary_activation=None,
         summary_proj_to_labels=True,
         summary_first_dropout=0.1,
+<<<<<<< HEAD
+=======
+        bos_token_id=50256,
+        eos_token_id=50256,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         **kwargs
     ):
         super().__init__(**kwargs)
@@ -155,6 +169,12 @@ class GPT2Config(PretrainedConfig):
         self.summary_first_dropout = summary_first_dropout
         self.summary_proj_to_labels = summary_proj_to_labels
 
+<<<<<<< HEAD
+=======
+        self.bos_token_id = bos_token_id
+        self.eos_token_ids = [eos_token_id]
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     @property
     def max_position_embeddings(self):
         return self.n_positions

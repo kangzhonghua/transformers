@@ -512,7 +512,11 @@ class XLMModel(XLMPreTrainedModel):
             inputs_embeds = self.embeddings(input_ids)
 
         tensor = inputs_embeds + self.position_embeddings(position_ids).expand_as(inputs_embeds)
+<<<<<<< HEAD:src/transformers/modeling_xlm.py
         if langs is not None and self.use_lang_emb:
+=======
+        if langs is not None and self.use_lang_emb and self.n_langs > 1:
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906:src/transformers/modeling_xlm.py
             tensor = tensor + self.lang_embeddings(langs)
         if token_type_ids is not None:
             tensor = tensor + self.embeddings(token_type_ids)

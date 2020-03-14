@@ -78,6 +78,10 @@ class TestCodeExamples(unittest.TestCase):
 
         for file in files:
             # Open all files
+<<<<<<< HEAD
+=======
+            print("Testing", file, end=" ")
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
             with open(os.path.join(directory, file)) as f:
                 # Retrieve examples
                 examples = get_examples_from_file(f)
@@ -99,7 +103,11 @@ class TestCodeExamples(unittest.TestCase):
                             joined_examples.append(example)
                             joined_examples_index += 1
 
+<<<<<<< HEAD
                 print("Testing", file, str(len(joined_examples)) + "/" + str(len(joined_examples)))
+=======
+                print(str(len(joined_examples)) + "/" + str(len(joined_examples)))
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
                 # Execute sub tests with every example.
                 for index, code_example in enumerate(joined_examples):
@@ -114,7 +122,12 @@ class TestCodeExamples(unittest.TestCase):
 
     def test_main_doc_examples(self):
         doc_directory = "docs/source"
+<<<<<<< HEAD
         self.analyze_directory(doc_directory)
+=======
+        ignore_files = ["favicon.ico"]
+        self.analyze_directory(doc_directory, ignore_files=ignore_files)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
     def test_modeling_examples(self):
         transformers_directory = "src/transformers"
@@ -125,5 +138,10 @@ class TestCodeExamples(unittest.TestCase):
             "modeling_tf_auto.py",
             "modeling_utils.py",
             "modeling_tf_t5.py",
+<<<<<<< HEAD
+=======
+            "modeling_bart.py",
+            "modeling_tf_utils.py",
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         ]
         self.analyze_directory(transformers_directory, identifier=modeling_files, ignore_files=ignore_files)

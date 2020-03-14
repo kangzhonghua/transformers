@@ -23,7 +23,11 @@ import tensorflow as tf
 
 from .configuration_ctrl import CTRLConfig
 from .file_utils import add_start_docstrings, add_start_docstrings_to_callable
+<<<<<<< HEAD
 from .modeling_tf_utils import TFPreTrainedModel, TFSharedEmbeddings, shape_list
+=======
+from .modeling_tf_utils import TFPreTrainedModel, TFSharedEmbeddings, keras_serializable, shape_list
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
 
 logger = logging.getLogger(__name__)
@@ -104,10 +108,17 @@ class TFMultiHeadAttention(tf.keras.layers.Layer):
         k = self.split_into_heads(k, batch_size)
         v = self.split_into_heads(v, batch_size)
         if layer_past is not None:
+<<<<<<< HEAD
             past_key, past_value = tf.unstack(layer_past, axis=1)
             k = tf.concat((past_key, k), dim=-2)
             v = tf.concat((past_value, v), dim=-2)
         present = tf.stack((k, v), axis=1)
+=======
+            past_key, past_value = tf.unstack(layer_past, axis=0)
+            k = tf.concat((past_key, k), axis=-2)
+            v = tf.concat((past_value, v), axis=-2)
+        present = tf.stack((k, v), axis=0)
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 
         output = scaled_dot_product_attention(q, k, v, mask, attention_mask, head_mask)
         scaled_attention = tf.transpose(output[0], perm=[0, 2, 1, 3])
@@ -164,7 +175,14 @@ class TFEncoderLayer(tf.keras.layers.Layer):
         return outputs
 
 
+<<<<<<< HEAD
 class TFCTRLMainLayer(tf.keras.layers.Layer):
+=======
+@keras_serializable
+class TFCTRLMainLayer(tf.keras.layers.Layer):
+    config_class = CTRLConfig
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     def __init__(self, config, **kwargs):
         super().__init__(**kwargs)
         self.output_hidden_states = config.output_hidden_states
@@ -505,6 +523,16 @@ class TFCTRLLMHeadModel(TFCTRLPreTrainedModel):
     def get_output_embeddings(self):
         return self.lm_head.input_embeddings
 
+<<<<<<< HEAD
+=======
+    def prepare_inputs_for_generation(self, inputs, past, **kwargs):
+        # only last token for inputs_ids if past is defined in kwargs
+        if past:
+            inputs = tf.expand_dims(inputs[:, -1], -1)
+
+        return {"inputs": inputs, "past": past}
+
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
     @add_start_docstrings_to_callable(CTRL_INPUTS_DOCSTRING)
     def call(self, inputs, **kwargs):
         r"""

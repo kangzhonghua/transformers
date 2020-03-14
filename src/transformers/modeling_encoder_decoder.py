@@ -18,7 +18,10 @@
 import logging
 import os
 
+<<<<<<< HEAD
 import torch
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from torch import nn
 
 from .modeling_auto import AutoModel, AutoModelWithLMHead
@@ -235,6 +238,7 @@ class PreTrainedEncoderDecoder(nn.Module):
         decoder_outputs = self.decoder(decoder_input_ids, **kwargs_decoder)
 
         return decoder_outputs + encoder_outputs
+<<<<<<< HEAD
 
     @staticmethod
     def prepare_model_kwargs(**kwargs):
@@ -348,3 +352,5 @@ class Model2LSTM(PreTrainedEncoderDecoder):
             kwargs["decoder_model"] = torch.nn.LSTM(kwargs.pop("decoder_config"))
         model = super().from_pretrained(*args, **kwargs)
         return model
+=======
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906

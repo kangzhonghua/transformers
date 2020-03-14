@@ -19,6 +19,10 @@ import logging
 from collections import OrderedDict
 
 from .configuration_albert import ALBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, AlbertConfig
+<<<<<<< HEAD
+=======
+from .configuration_bart import BART_PRETRAINED_CONFIG_ARCHIVE_MAP, BartConfig
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
 from .configuration_bert import BERT_PRETRAINED_CONFIG_ARCHIVE_MAP, BertConfig
 from .configuration_camembert import CAMEMBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, CamembertConfig
 from .configuration_ctrl import CTRL_PRETRAINED_CONFIG_ARCHIVE_MAP, CTRLConfig
@@ -42,6 +46,10 @@ ALL_PRETRAINED_CONFIG_ARCHIVE_MAP = dict(
     (key, value)
     for pretrained_map in [
         BERT_PRETRAINED_CONFIG_ARCHIVE_MAP,
+<<<<<<< HEAD
+=======
+        BART_PRETRAINED_CONFIG_ARCHIVE_MAP,
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         OPENAI_GPT_PRETRAINED_CONFIG_ARCHIVE_MAP,
         TRANSFO_XL_PRETRAINED_CONFIG_ARCHIVE_MAP,
         GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP,
@@ -67,6 +75,10 @@ CONFIG_MAPPING = OrderedDict(
         ("albert", AlbertConfig,),
         ("camembert", CamembertConfig,),
         ("xlm-roberta", XLMRobertaConfig,),
+<<<<<<< HEAD
+=======
+        ("bart", BartConfig,),
+>>>>>>> 2bd79e23defb6cf6af96a4a6318b0ced9913a906
         ("roberta", RobertaConfig,),
         ("flaubert", FlaubertConfig,),
         ("bert", BertConfig,),
